@@ -59,8 +59,12 @@ jspm_packages/
 ehthumbs.db
 Thumbs.db
 
+# Nuxt
+.nuxt/
+.output/
+dist/
+
 # Local development
 *.local
-dist/
 .cache/
 .temp/

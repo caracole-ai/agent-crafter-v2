@@ -1,0 +1,140 @@
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.glass-effect {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.preset-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.preset-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.budget-indicator {
+  transition: all 0.3s ease;
+}
+
+.preview-panel {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.chat-user {
+  background: #3b82f6;
+  color: white;
+  margin-left: 20%;
+}
+
+.chat-agent {
+  background: #f3f4f6;
+  color: #374151;
+  margin-right: 20%;
+}
+
+/* Custom Range Sliders */
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
+  outline: none;
+  margin: 10px 0;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.range-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Tab styles */
+.tab-button {
+  padding: 12px 24px;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e5e7eb;
+  border-bottom: none;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background: white;
+  color: #3b82f6;
+  border-color: #3b82f6 #3b82f6 white #3b82f6;
+  z-index: 1;
+  position: relative;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .chat-user,
+  .chat-agent {
+    margin: 8px 0;
+  }
+
+  .personality-radar {
+    max-width: 250px;
+  }
+}
