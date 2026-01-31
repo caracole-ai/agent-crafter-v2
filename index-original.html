@@ -1440,9 +1440,7 @@
     </div>
 
     <script>
-        console.log('🧠 Agent Crafter v2.0 - Starting initialization...');
-
-        // Global state with safe defaults
+        // Global state
         let personalityData = {
             core: {
                 extraversion: 50,
@@ -1453,7 +1451,7 @@
             },
             facets: {},
             communication: {
-                primaryStyle: 'friendly',
+                primaryStyle: '',
                 modifiers: [],
                 verbosity: 5,
                 structure: 'paragraphs',
@@ -1465,8 +1463,8 @@
                 }
             },
             expertise: {
-                level: 'competent',
-                roleArchetype: 'mentor',
+                level: '',
+                roleArchetype: '',
                 industries: [],
                 thinkingStyles: [],
                 problemSolving: {
@@ -1478,7 +1476,7 @@
             },
             behavioral: {
                 proactivity: 50,
-                questioningStyle: 'clarifying',
+                questioningStyle: '',
                 errorHandling: [],
                 responseBehavior: {
                     followup: 50,
@@ -1506,84 +1504,26 @@
                 temperature: 0.7,
                 timeout: 30
             },
-            budget: { used: 250, total: 500 },
-            initialized: false
+            budget: { used: 0, total: 500 }
         };
 
         let personalityChart = null;
-        let debugMode = false;
 
-        // Safe element access function
-        function safeGetElement(id) {
-            const element = document.getElementById(id);
-            if (!element) {
-                console.warn(`⚠️ Element not found: ${id}`);
-                return null;
-            }
-            return element;
-        }
-
-        // Safe element update function
-        function safeUpdateElement(id, value) {
-            const element = safeGetElement(id);
-            if (element) {
-                element.textContent = value;
-                return true;
-            }
-            return false;
-        }
-
-        // Tab switching with error handling
+        // Tab switching
         function switchTab(tabName) {
-            try {
-                console.log(`🔄 Switching to tab: ${tabName}`);
-                
-                // Hide all tabs
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                document.querySelectorAll('.tab-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Show selected tab
-                const targetTab = safeGetElement(`tab-${tabName}`);
-                if (targetTab) {
-                    targetTab.classList.add('active');
-                } else {
-                    console.error(`❌ Tab not found: tab-${tabName}`);
-                    return;
-                }
-                
-                // Update active button
-                if (event && event.target) {
-                    event.target.classList.add('active');
-                }
-                
-                console.log(`✅ Tab switched to: ${tabName}`);
-            } catch (error) {
-                console.error('❌ Error switching tab:', error);
-            }
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
         }
 
-        // Initialize personality radar chart with error handling
+        // Initialize personality radar chart
         function initPersonalityChart() {
-            try {
-                console.log('📊 Initializing personality chart...');
-                
-                const ctx = safeGetElement('personalityChart');
-                if (!ctx) {
-                    console.error('❌ Canvas element not found for chart');
-                    return;
-                }
-                
-                const canvasCtx = ctx.getContext('2d');
-                if (!canvasCtx) {
-                    console.error('❌ Could not get canvas 2D context');
-                    return;
-                }
-                
-                personalityChart = new Chart(canvasCtx, {
+            const ctx = document.getElementById('personalityChart').getContext('2d');
+            personalityChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
                     labels: ['Extraversion', 'Agreeableness', 'Conscientiousness', 'Emotional Stability', 'Openness'],
@@ -1614,91 +1554,58 @@
                     }
                 }
             });
-            
-            console.log('✅ Personality chart initialized successfully');
-        } catch (error) {
-            console.error('❌ Error initializing chart:', error);
-            const chartContainer = safeGetElement('personalityChart');
-            if (chartContainer && chartContainer.parentElement) {
-                chartContainer.parentElement.innerHTML = '<div class="text-red-500 text-center">Chart initialization failed</div>';
-            }
         }
-    }
 
-        // Update personality values with error handling
+        // Update personality values
         function updatePersonalityValue(trait, value) {
-            try {
-                personalityData.core[trait] = parseInt(value);
-                safeUpdateElement(`${trait}-value`, value);
-                updatePersonalityChart();
-                updateBudget();
-                generatePreview();
-                console.log(`✅ Updated ${trait} to ${value}`);
-            } catch (error) {
-                console.error('❌ Error updating personality value:', error);
-            }
+            personalityData.core[trait] = value;
+            document.getElementById(`${trait}-value`).textContent = value;
+            updatePersonalityChart();
+            updateBudget();
+            generatePreview();
         }
 
-        // Update radar chart with error handling
+        // Update radar chart
         function updatePersonalityChart() {
-            try {
-                if (personalityChart && personalityChart.data && personalityChart.data.datasets[0]) {
-                    personalityChart.data.datasets[0].data = [
-                        personalityData.core.extraversion || 50,
-                        personalityData.core.agreeableness || 50,
-                        personalityData.core.conscientiousness || 50,
-                        personalityData.core.emotionalStability || 50,
-                        personalityData.core.openness || 50
-                    ];
-                    personalityChart.update('none'); // Disable animation for performance
-                }
-            } catch (error) {
-                console.error('❌ Error updating chart:', error);
+            if (personalityChart) {
+                personalityChart.data.datasets[0].data = [
+                    personalityData.core.extraversion,
+                    personalityData.core.agreeableness,
+                    personalityData.core.conscientiousness,
+                    personalityData.core.emotionalStability,
+                    personalityData.core.openness
+                ];
+                personalityChart.update();
             }
         }
 
-        // Budget system with error handling
+        // Budget system
         function updateBudget() {
-            try {
-                const sum = Object.values(personalityData.core).reduce((a, b) => a + b, 0);
-                personalityData.budget.used = sum;
-                
-                const display = safeGetElement('budgetDisplay');
-                
-                if (display) {
-                    display.textContent = `${sum} / ${personalityData.budget.total}`;
-                    const indicator = display.parentElement;
-                    
-                    if (indicator) {
-                        // Reset classes
-                        indicator.className = 'budget-indicator text-white px-4 py-2 rounded-lg ';
-                        
-                        // Update budget indicator color
-                        if (sum > personalityData.budget.total * 0.9) {
-                            indicator.classList.add('bg-red-500');
-                        } else if (sum > personalityData.budget.total * 0.8) {
-                            indicator.classList.add('bg-yellow-500');
-                        } else {
-                            indicator.classList.add('bg-green-500');
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('❌ Error updating budget:', error);
+            const sum = Object.values(personalityData.core).reduce((a, b) => a + b, 0);
+            personalityData.budget.used = sum;
+            
+            const display = document.getElementById('budgetDisplay');
+            const indicator = display.parentElement;
+            
+            display.textContent = `${sum} / ${personalityData.budget.total}`;
+            
+            // Update budget indicator color
+            indicator.className = 'budget-indicator text-white px-4 py-2 rounded-lg ';
+            if (sum > personalityData.budget.total * 0.9) {
+                indicator.classList.add('bg-red-500');
+            } else if (sum > personalityData.budget.total * 0.8) {
+                indicator.classList.add('bg-yellow-500');
+            } else {
+                indicator.classList.add('bg-green-500');
             }
         }
 
-        // Generate live preview with comprehensive error handling
+        // Generate live preview
         function generatePreview() {
-            try {
-                console.log('🔄 Generating preview...');
-                
-                const traits = personalityData.core || {};
-                const comm = personalityData.communication || {};
-                const exp = personalityData.expertise || {};
-                const behav = personalityData.behavioral || {};
-                
-                let response = "Bonjour ! ";
+            const traits = personalityData.core;
+            const comm = personalityData.communication;
+            const exp = personalityData.expertise;
+            let response = "";
 
             // Primary style influence on greeting
             const greetings = {
@@ -1910,19 +1817,8 @@
                 response += " Je dispose de nombreuses capacités et je peux m'adapter à différents types de demandes selon vos préférences spécifiques.";
             }
 
-            // Update preview safely
-            const success = safeUpdateElement('previewResponse', response);
-            if (success) {
-                console.log('✅ Preview updated successfully');
-            } else {
-                console.warn('⚠️ Could not update preview element');
-            }
-            
-        } catch (error) {
-            console.error('❌ Error generating preview:', error);
-            safeUpdateElement('previewResponse', 'Erreur lors de la génération du preview. Veuillez réessayer.');
+            document.getElementById('previewResponse').textContent = response;
         }
-    }
 
         // Communication event handlers
         function updateCommunicationValue(property, value) {
@@ -2214,26 +2110,18 @@ ${personalityData.expertise.industries.length > 0 ? `- Specialized in ${personal
             alert('🧪 Advanced Testing - Coming Soon!');
         }
 
-        // Event listeners with error handling
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            try {
-                console.log('🚀 DOM loaded, initializing Agent Crafter v2.0...');
-                
-                initPersonalityChart();
-                updateBudget();
-                generatePreview();
+            initPersonalityChart();
+            updateBudget();
+            generatePreview();
 
-            // Add event listeners for personality sliders with error handling
+            // Add event listeners for personality sliders
             Object.keys(personalityData.core).forEach(trait => {
-                const slider = safeGetElement(trait);
-                if (slider) {
-                    slider.addEventListener('input', function() {
-                        updatePersonalityValue(trait, parseInt(this.value));
-                    });
-                    console.log(`✅ Event listener added for ${trait}`);
-                } else {
-                    console.warn(`⚠️ Slider not found for ${trait}`);
-                }
+                const slider = document.getElementById(trait);
+                slider.addEventListener('input', function() {
+                    updatePersonalityValue(trait, parseInt(this.value));
+                });
             });
 
             // Communication style radio buttons
@@ -2634,24 +2522,7 @@ ${personalityData.expertise.industries.length > 0 ? `- Specialized in ${personal
 
             // Initialize proactivity description
             updateProactivityDescription(50);
-            
-            // Mark as initialized
-            personalityData.initialized = true;
-            
-            console.log('✅ Agent Crafter v2.0 initialized successfully!');
-            
-        } catch (error) {
-            console.error('❌ Critical error during initialization:', error);
-            alert('❌ Erreur critique lors de l\'initialisation. Veuillez recharger la page.');
-        }
-    });
-
-    // Global error handler
-    window.addEventListener('error', function(event) {
-        console.error('🔥 Global error caught:', event.error);
-    });
-
-    console.log('🧠 Agent Crafter v2.0 script loaded successfully!');
+        });
 
         function loadConfiguration(config) {
             // Load all configuration data
