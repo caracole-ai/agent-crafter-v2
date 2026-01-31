@@ -1,0 +1,35 @@
+{
+  "name": "agent-crafter-v2",
+  "version": "2.0.0",
+  "description": "Professional AI Personality Builder - Character Creator for AI Agents",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . --cors",
+    "deploy": "echo 'Deploy script placeholder'"
+  },
+  "keywords": [
+    "ai",
+    "personality",
+    "agent",
+    "character-creator",
+    "artificial-intelligence",
+    "big5",
+    "personality-psychology",
+    "webapp"
+  ],
+  "author": "Caracole AI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caracole-ai/agent-crafter-v2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/caracole-ai/agent-crafter-v2/issues"
+  },
+  "homepage": "https://github.com/caracole-ai/agent-crafter-v2#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
