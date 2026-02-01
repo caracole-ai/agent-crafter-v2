@@ -8,6 +8,9 @@ const tabs: { key: TabName; emoji: string; label: string }[] = [
   { key: 'communication', emoji: '💬', label: 'Communication' },
   { key: 'expertise', emoji: '💼', label: 'Expertise' },
   { key: 'behavioral', emoji: '🎯', label: 'Behavioral' },
+  { key: 'philosophy', emoji: '🏛️', label: 'Philosophie' },
+  { key: 'theater', emoji: '🎭', label: 'Théâtre' },
+  { key: 'literary', emoji: '✒️', label: 'Style Littéraire' },
   { key: 'advanced', emoji: '⚙️', label: 'Advanced' },
 ]
 </script>

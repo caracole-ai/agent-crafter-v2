@@ -38,6 +38,9 @@ function handleTest() {
             <TabsCommunicationTab v-show="store.activeTab === 'communication'" />
             <TabsExpertiseTab v-show="store.activeTab === 'expertise'" />
             <TabsBehavioralTab v-show="store.activeTab === 'behavioral'" />
+            <TabsPhilosophyTab v-show="store.activeTab === 'philosophy'" />
+            <TabsTheaterTab v-show="store.activeTab === 'theater'" />
+            <TabsLiteraryTab v-show="store.activeTab === 'literary'" />
             <TabsAdvancedTab v-show="store.activeTab === 'advanced'" />
           </div>
 

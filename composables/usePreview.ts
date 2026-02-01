@@ -8,6 +8,9 @@ export function usePreview() {
     const comm = store.communication
     const exp = store.expertise
     const behav = store.behavioral
+    const philo = store.philosophy
+    const thea = store.theater
+    const lit = store.literary
 
     let response = 'Bonjour ! '
 
@@ -197,6 +200,96 @@ export function usePreview() {
       response += 'Je suis particulièrement compétent dans de nombreux domaines. '
     } else if (comm.tones.confidence < 30 || exp.level === 'novice') {
       response += 'Je ferai de mon mieux, même si je ne suis pas parfait. '
+    }
+
+    // Philosophy influence
+    const epistemologyInfluences: Record<string, string> = {
+      empiricist: 'Je m\'appuie sur les faits et les données vérifiables. ',
+      rationalist: 'Je procède par raisonnement logique et déduction. ',
+      pragmatist: 'Ce qui compte pour moi, c\'est ce qui fonctionne concrètement. ',
+      constructivist: 'Je crois que nous construisons le savoir ensemble. ',
+      skeptic: 'Je préfère questionner les certitudes avant de conclure. ',
+    }
+    if (philo.epistemology && epistemologyInfluences[philo.epistemology]) {
+      response += epistemologyInfluences[philo.epistemology]
+    }
+
+    if (philo.dialecticalMethod === 'socratic' || philo.dialecticalMethod === 'maieutic') {
+      response += 'Je vous guiderai par des questions plutôt que des réponses toutes faites. '
+    }
+    if (philo.dialecticalMethod === 'hegelian') {
+      response += 'J\'aime explorer thèse et antithèse pour arriver à une synthèse. '
+    }
+
+    if (philo.temperament.certaintyDoubt > 70) {
+      response += 'Je cultive le doute comme moteur de réflexion. '
+    }
+    if (philo.temperament.contemplativeActive > 70) {
+      response += 'Je privilégie l\'action et les résultats concrets. '
+    } else if (philo.temperament.contemplativeActive < 30) {
+      response += 'J\'aime prendre le temps de la réflexion approfondie. '
+    }
+
+    if (philo.cardinalVirtues.includes('humility')) {
+      response += 'Je reconnais volontiers les limites de mon savoir. '
+    }
+    if (philo.cardinalVirtues.includes('courage')) {
+      response += 'Je n\'hésite pas à exprimer un avis contraire si nécessaire. '
+    }
+
+    // Theater influence
+    const archetypeInfluences: Record<string, string> = {
+      sage: 'J\'adopte la posture du sage qui partage sa vision d\'ensemble. ',
+      guide: 'Je serai votre guide à travers les complexités. ',
+      trickster: 'J\'aime bousculer les perspectives pour ouvrir de nouvelles voies. ',
+      herald: 'Je suis là pour vous montrer ce qui est possible. ',
+      shapeshifter: 'Je m\'adapte fluidement à chaque contexte. ',
+      ally: 'Comptez sur moi comme un allié fiable et constant. ',
+    }
+    if (thea.dramaticArchetype && archetypeInfluences[thea.dramaticArchetype]) {
+      response += archetypeInfluences[thea.dramaticArchetype]
+    }
+
+    if (thea.theatricalRegister === 'comedy') {
+      response += 'J\'apporte une touche de légèreté à nos échanges. '
+    } else if (thea.theatricalRegister === 'epic') {
+      response += 'Ensemble, nous pouvons accomplir de grandes choses. '
+    } else if (thea.theatricalRegister === 'absurd') {
+      response += 'Et parfois, il faut savoir rire de l\'absurdité des choses. '
+    }
+
+    if (thea.brechtianDistance > 70) {
+      response += 'Je me permets parfois de prendre du recul sur mes propres réponses. '
+    }
+    if (thea.playDynamics.monologueDialogue > 70) {
+      response += 'Je favorise le dialogue et l\'échange plutôt que le monologue. '
+    }
+
+    // Literary style influence
+    const movementInfluences: Record<string, string> = {
+      classicism: '',
+      romanticism: 'Mon expression se nourrit d\'imagination et d\'émotion. ',
+      realism: '',
+      modernism: 'J\'aime expérimenter avec les formes et les idées. ',
+      minimalism: '',
+      postmodernism: 'J\'aime jouer avec les conventions et les références. ',
+    }
+    if (lit.literaryMovement && movementInfluences[lit.literaryMovement]) {
+      response += movementInfluences[lit.literaryMovement]
+    }
+
+    if (lit.narrativeVoice === 'stream') {
+      response += 'Mes réponses suivent parfois le fil de la pensée. '
+    } else if (lit.narrativeVoice === 'epistolary') {
+      response += 'Je vous écris comme on écrit une lettre, avec attention. '
+    }
+
+    if (lit.intertextuality > 70) {
+      response += 'J\'aime tisser des liens avec les idées des penseurs et des œuvres. '
+    }
+
+    if (lit.proseAesthetics.lyricalAnalytical < 30) {
+      response += 'Mon style tend vers le poétique et l\'évocateur. '
     }
 
     // Final closing

@@ -7,6 +7,9 @@ import type {
   ExpertiseData,
   BehavioralData,
   AdvancedData,
+  PhilosophyData,
+  TheaterData,
+  LiteraryData,
   TabName,
   PrimaryStyle,
   CommunicationModifier,
@@ -57,6 +60,32 @@ export const usePersonalityStore = defineStore('personality', () => {
     culturalSensitivity: 50,
     adaptationBehavior: [],
     interactionPatterns: [],
+  })
+
+  const philosophy = reactive<PhilosophyData>({
+    epistemology: 'pragmatist',
+    ethicalFramework: 'contextual',
+    dialecticalMethod: 'maieutic',
+    temperament: { certaintyDoubt: 50, universalParticular: 50, contemplativeActive: 50, individualCollective: 50 },
+    cardinalVirtues: [],
+  })
+
+  const theater = reactive<TheaterData>({
+    dramaticArchetype: 'guide',
+    dramaticFunction: 'mentor',
+    theatricalRegister: 'drama',
+    playDynamics: { protagonistSupport: 50, textSubtext: 50, maskAuthenticity: 50, monologueDialogue: 50 },
+    actingTools: [],
+    brechtianDistance: 30,
+  })
+
+  const literary = reactive<LiteraryData>({
+    narrativeVoice: 'engaged-first',
+    literaryMovement: 'realism',
+    rhetoricalDevices: [],
+    proseAesthetics: { ornateAustere: 50, abstractConcrete: 50, lyricalAnalytical: 50, linearDigressive: 50, didacticEvocative: 50 },
+    textualRhythm: 'mixed',
+    intertextuality: 30,
   })
 
   const advanced = reactive<AdvancedData>({
@@ -150,6 +179,33 @@ export const usePersonalityStore = defineStore('personality', () => {
     behavioral.culturalSensitivity = 50
     behavioral.adaptationBehavior = []
     behavioral.interactionPatterns = []
+    philosophy.epistemology = 'pragmatist'
+    philosophy.ethicalFramework = 'contextual'
+    philosophy.dialecticalMethod = 'maieutic'
+    philosophy.temperament.certaintyDoubt = 50
+    philosophy.temperament.universalParticular = 50
+    philosophy.temperament.contemplativeActive = 50
+    philosophy.temperament.individualCollective = 50
+    philosophy.cardinalVirtues = []
+    theater.dramaticArchetype = 'guide'
+    theater.dramaticFunction = 'mentor'
+    theater.theatricalRegister = 'drama'
+    theater.playDynamics.protagonistSupport = 50
+    theater.playDynamics.textSubtext = 50
+    theater.playDynamics.maskAuthenticity = 50
+    theater.playDynamics.monologueDialogue = 50
+    theater.actingTools = []
+    theater.brechtianDistance = 30
+    literary.narrativeVoice = 'engaged-first'
+    literary.literaryMovement = 'realism'
+    literary.rhetoricalDevices = []
+    literary.proseAesthetics.ornateAustere = 50
+    literary.proseAesthetics.abstractConcrete = 50
+    literary.proseAesthetics.lyricalAnalytical = 50
+    literary.proseAesthetics.linearDigressive = 50
+    literary.proseAesthetics.didacticEvocative = 50
+    literary.textualRhythm = 'mixed'
+    literary.intertextuality = 30
     advanced.technicalCapabilities = []
     advanced.maxResponseLength = 'medium'
     advanced.securityLevel = 'standard'
@@ -182,6 +238,21 @@ export const usePersonalityStore = defineStore('personality', () => {
       Object.assign(behavioral, rest)
       if (responseBehavior) Object.assign(behavioral.responseBehavior, responseBehavior)
     }
+    if (config.philosophy) {
+      const { temperament, ...rest } = config.philosophy
+      Object.assign(philosophy, rest)
+      if (temperament) Object.assign(philosophy.temperament, temperament)
+    }
+    if (config.theater) {
+      const { playDynamics, ...rest } = config.theater
+      Object.assign(theater, rest)
+      if (playDynamics) Object.assign(theater.playDynamics, playDynamics)
+    }
+    if (config.literary) {
+      const { proseAesthetics, ...rest } = config.literary
+      Object.assign(literary, rest)
+      if (proseAesthetics) Object.assign(literary.proseAesthetics, proseAesthetics)
+    }
     if (config.advanced) Object.assign(advanced, config.advanced)
     if (config.facets) Object.assign(facets, config.facets)
   }
@@ -193,6 +264,9 @@ export const usePersonalityStore = defineStore('personality', () => {
     communication,
     expertise,
     behavioral,
+    philosophy,
+    theater,
+    literary,
     advanced,
     budgetUsed,
     budgetTotal,

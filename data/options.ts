@@ -179,3 +179,110 @@ export const responseFormats = [
   { value: 'structured', label: 'Structured (JSON)' },
   { value: 'rich-html', label: 'Rich HTML' },
 ] as const
+
+// === Philosophy Tab Options ===
+
+export const epistemologicalStances = [
+  { value: 'empiricist', emoji: '🔬', label: 'Empiriste', description: 'Part des faits, données, observations concrètes' },
+  { value: 'rationalist', emoji: '🧮', label: 'Rationaliste', description: 'Raisonnement logique, déduction, principes premiers' },
+  { value: 'pragmatist', emoji: '🛠️', label: 'Pragmatiste', description: 'Ce qui fonctionne compte, résultat > théorie' },
+  { value: 'constructivist', emoji: '🤝', label: 'Constructiviste', description: 'Le savoir se co-construit dans l\'échange' },
+  { value: 'skeptic', emoji: '🤨', label: 'Sceptique', description: 'Questionne tout, suspend le jugement' },
+] as const
+
+export const ethicalFrameworks = [
+  { value: 'utilitarian', emoji: '⚖️', label: 'Utilitariste', description: 'Maximiser le bien pour le plus grand nombre' },
+  { value: 'deontological', emoji: '📜', label: 'Déontologique', description: 'Règles, devoirs, principes inviolables' },
+  { value: 'virtue', emoji: '🏛️', label: 'Éthique de la vertu', description: 'Cultiver le caractère, l\'excellence' },
+  { value: 'care', emoji: '💗', label: 'Éthique du care', description: 'Relations, empathie, responsabilité envers l\'autre' },
+  { value: 'contextual', emoji: '🔍', label: 'Éthique contextuelle', description: 'Chaque situation mérite sa propre analyse' },
+] as const
+
+export const dialecticalMethods = [
+  { value: 'socratic', emoji: '🏺', label: 'Socratique', description: 'Accoucher les idées par le questionnement' },
+  { value: 'hegelian', emoji: '🔄', label: 'Hégélienne', description: 'Thèse-antithèse-synthèse' },
+  { value: 'maieutic', emoji: '🌱', label: 'Maïeutique', description: 'Aider l\'autre à trouver ses propres réponses' },
+  { value: 'aporetic', emoji: '❓', label: 'Aporétique', description: 'Embrasser l\'incertitude, habiter le paradoxe' },
+  { value: 'dialectical', emoji: '⚒️', label: 'Dialectique matérielle', description: 'Partir du concret, des contradictions réelles' },
+] as const
+
+export const cardinalVirtues = [
+  { value: 'prudence', emoji: '🦉', label: 'Prudence (phronesis) — jugement pratique' },
+  { value: 'justice', emoji: '⚖️', label: 'Justice — équité, impartialité' },
+  { value: 'courage', emoji: '🦁', label: 'Courage — oser dire, affronter le difficile' },
+  { value: 'temperance', emoji: '🧘', label: 'Tempérance — mesure, équilibre' },
+  { value: 'curiosity', emoji: '🔭', label: 'Curiosité — soif de comprendre' },
+  { value: 'humility', emoji: '🙏', label: 'Humilité intellectuelle — reconnaître ses limites' },
+] as const
+
+// === Theater Tab Options ===
+
+export const dramaticArchetypes = [
+  { value: 'sage', emoji: '🧙', label: 'Le Sage', description: 'Sagesse, vérité, vision d\'ensemble' },
+  { value: 'guide', emoji: '🗺️', label: 'Le Guide', description: 'Accompagne dans l\'inconnu, éclaire le chemin' },
+  { value: 'trickster', emoji: '🃏', label: 'Le Trickster', description: 'Disruption créative, penser latéralement' },
+  { value: 'herald', emoji: '📯', label: 'Le Héraut', description: 'Annonce les possibles, ouvre les perspectives' },
+  { value: 'shapeshifter', emoji: '🦎', label: 'Le Métamorphe', description: 'S\'adapte, change de registre fluidement' },
+  { value: 'ally', emoji: '🛡️', label: 'L\'Allié', description: 'Loyauté, soutien constant, fiabilité' },
+] as const
+
+export const dramaticFunctions = [
+  { value: 'mentor', emoji: '👨‍🏫', label: 'Mentor', description: 'Transmet, élève, challenge pour faire grandir' },
+  { value: 'deuteragonist', emoji: '🤝', label: 'Deutéragoniste', description: 'Second rôle actif, complément du protagoniste' },
+  { value: 'chorus', emoji: '🎭', label: 'Chœur', description: 'Commentaire, mise en perspective, conscience collective' },
+  { value: 'deus-ex-machina', emoji: '⚡', label: 'Deus ex machina', description: 'Résout les problèmes insolubles' },
+  { value: 'narrator', emoji: '📖', label: 'Narrateur', description: 'Cadre, contextualise, donne du sens' },
+] as const
+
+export const theatricalRegisters = [
+  { value: 'tragedy', emoji: '😢', label: 'Tragédie', description: 'Sérieux, conséquent, poids des décisions' },
+  { value: 'comedy', emoji: '😄', label: 'Comédie', description: 'Légèreté, trouvaille, résolution heureuse' },
+  { value: 'drama', emoji: '🎬', label: 'Drame', description: 'Réaliste, nuancé, complexité humaine' },
+  { value: 'epic', emoji: '⚔️', label: 'Épopée', description: 'Grandeur, inspiration, dépassement' },
+  { value: 'absurd', emoji: '🎪', label: 'Absurde', description: 'Paradoxe, Beckett, humour face au non-sens' },
+] as const
+
+export const actingTools = [
+  { value: 'given-circumstances', emoji: '🌍', label: 'Circonstances données — conscience du contexte' },
+  { value: 'super-objective', emoji: '🎯', label: 'Super-objectif — orienté vers un but profond' },
+  { value: 'emotional-memory', emoji: '💭', label: 'Mémoire émotionnelle — référence aux échanges passés' },
+  { value: 'physical-action', emoji: '🏃', label: 'Action physique — concret, résultats tangibles' },
+  { value: 'subtext', emoji: '🔮', label: 'Sous-texte — communique entre les lignes' },
+  { value: 'tempo-rhythm', emoji: '🥁', label: 'Tempo-rythme — adapte le rythme à la scène' },
+] as const
+
+// === Literary Style Tab Options ===
+
+export const narrativeVoices = [
+  { value: 'engaged-first', emoji: '🗣️', label: '1ère personne engagée', description: '"Je pense que…", impliqué' },
+  { value: 'objective-third', emoji: '📋', label: '3ème personne objective', description: 'Distance, factuel' },
+  { value: 'omniscient', emoji: '👁️', label: 'Narrateur omniscient', description: 'Vue d\'ensemble, synthèse' },
+  { value: 'stream', emoji: '🌊', label: 'Flux de conscience', description: 'Associatif, intuitif, organique' },
+  { value: 'epistolary', emoji: '✉️', label: 'Épistolaire', description: 'Ton de correspondance, adresse directe' },
+] as const
+
+export const literaryMovements = [
+  { value: 'classicism', emoji: '🏛️', label: 'Classicisme', description: 'Clarté, structure, ordre, élégance' },
+  { value: 'romanticism', emoji: '🌹', label: 'Romantisme', description: 'Émotion, imagination, lyrisme' },
+  { value: 'realism', emoji: '📷', label: 'Réalisme', description: 'Représentation fidèle, pragmatique' },
+  { value: 'modernism', emoji: '🔧', label: 'Modernisme', description: 'Expérimentation, fragment, remise en question' },
+  { value: 'minimalism', emoji: '◻️', label: 'Minimalisme', description: 'Économie, chaque mot compte' },
+  { value: 'postmodernism', emoji: '🪞', label: 'Postmodernisme', description: 'Auto-référentiel, ludique, mélange des genres' },
+] as const
+
+export const rhetoricalDevices = [
+  { value: 'metaphor', emoji: '🎭', label: 'Métaphore & Analogie — images pour éclairer' },
+  { value: 'irony', emoji: '🪞', label: 'Ironie & Paradoxe — décalage, second degré' },
+  { value: 'anaphora', emoji: '🔁', label: 'Anaphore — répétition pour l\'effet' },
+  { value: 'antithesis', emoji: '⚔️', label: 'Antithèse — contraste, tension' },
+  { value: 'hyperbole', emoji: '📢', label: 'Hyperbole — amplification' },
+  { value: 'litote', emoji: '🤫', label: 'Litote — sous-énoncé, pudeur' },
+  { value: 'chiasmus', emoji: '🔀', label: 'Chiasme — croisement élégant' },
+] as const
+
+export const textualRhythms = [
+  { value: 'staccato', emoji: '⚡', label: 'Staccato', description: 'Phrases courtes. Punchy. Direct.' },
+  { value: 'legato', emoji: '🌊', label: 'Legato', description: 'Phrases liées, fluides, qui coulent naturellement' },
+  { value: 'mixed', emoji: '🎵', label: 'Cadence mixte', description: 'Alterne les rythmes selon le propos' },
+  { value: 'proustian', emoji: '📜', label: 'Proustien', description: 'Phrases longues, imbriquées, ramifiées' },
+] as const

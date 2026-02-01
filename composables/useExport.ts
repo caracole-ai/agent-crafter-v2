@@ -13,6 +13,9 @@ export function useExport() {
     c += store.behavioral.errorHandling.length
     c += store.behavioral.adaptationBehavior.length
     c += store.behavioral.interactionPatterns.length
+    c += store.philosophy.cardinalVirtues.length
+    c += store.theater.actingTools.length
+    c += store.literary.rhetoricalDevices.length
     c += store.advanced.technicalCapabilities.length
     c += store.advanced.conditionalBehaviors.length
     return c
@@ -60,6 +63,21 @@ export function useExport() {
         adaptationBehavior: [...store.behavioral.adaptationBehavior],
         interactionPatterns: [...store.behavioral.interactionPatterns],
       },
+      philosophy: {
+        ...store.philosophy,
+        temperament: { ...store.philosophy.temperament },
+        cardinalVirtues: [...store.philosophy.cardinalVirtues],
+      },
+      theater: {
+        ...store.theater,
+        playDynamics: { ...store.theater.playDynamics },
+        actingTools: [...store.theater.actingTools],
+      },
+      literary: {
+        ...store.literary,
+        proseAesthetics: { ...store.literary.proseAesthetics },
+        rhetoricalDevices: [...store.literary.rhetoricalDevices],
+      },
       advanced: {
         ...store.advanced,
         technicalCapabilities: [...store.advanced.technicalCapabilities],
@@ -98,6 +116,39 @@ Industries: ${store.expertise.industries.join(', ')}
 Proactivity: ${store.behavioral.proactivity}/100
 Questioning Style: ${store.behavioral.questioningStyle}
 
+## Philosophy
+Epistemology: ${store.philosophy.epistemology}
+Ethical Framework: ${store.philosophy.ethicalFramework}
+Dialectical Method: ${store.philosophy.dialecticalMethod}
+Cardinal Virtues: ${store.philosophy.cardinalVirtues.join(', ') || 'none'}
+Temperament — Certainty↔Doubt: ${store.philosophy.temperament.certaintyDoubt}/100
+Temperament — Universal↔Particular: ${store.philosophy.temperament.universalParticular}/100
+Temperament — Contemplative↔Active: ${store.philosophy.temperament.contemplativeActive}/100
+Temperament — Individual↔Collective: ${store.philosophy.temperament.individualCollective}/100
+
+## Theater & Character
+Dramatic Archetype: ${store.theater.dramaticArchetype}
+Dramatic Function: ${store.theater.dramaticFunction}
+Theatrical Register: ${store.theater.theatricalRegister}
+Acting Tools: ${store.theater.actingTools.join(', ') || 'none'}
+Brechtian Distance: ${store.theater.brechtianDistance}/100
+Dynamics — Protagonist↔Support: ${store.theater.playDynamics.protagonistSupport}/100
+Dynamics — Text↔Subtext: ${store.theater.playDynamics.textSubtext}/100
+Dynamics — Mask↔Authenticity: ${store.theater.playDynamics.maskAuthenticity}/100
+Dynamics — Monologue↔Dialogue: ${store.theater.playDynamics.monologueDialogue}/100
+
+## Literary Style
+Narrative Voice: ${store.literary.narrativeVoice}
+Literary Movement: ${store.literary.literaryMovement}
+Textual Rhythm: ${store.literary.textualRhythm}
+Rhetorical Devices: ${store.literary.rhetoricalDevices.join(', ') || 'none'}
+Intertextuality: ${store.literary.intertextuality}/100
+Prose — Ornate↔Austere: ${store.literary.proseAesthetics.ornateAustere}/100
+Prose — Abstract↔Concrete: ${store.literary.proseAesthetics.abstractConcrete}/100
+Prose — Lyrical↔Analytical: ${store.literary.proseAesthetics.lyricalAnalytical}/100
+Prose — Linear↔Digressive: ${store.literary.proseAesthetics.linearDigressive}/100
+Prose — Didactic↔Evocative: ${store.literary.proseAesthetics.didacticEvocative}/100
+
 ## Custom Instructions
 ${store.advanced.systemInstructions}
 
@@ -128,6 +179,29 @@ This agent combines ${extLevel} extraversion with ${store.communication.primaryS
 ## Configuration Complexity
 **Total Parameters Configured:** ${complexity.value}
 **Budget Usage:** ${store.budgetUsed}/${store.budgetTotal}
+
+## Philosophy
+- **Epistemology:** ${store.philosophy.epistemology}
+- **Ethical Framework:** ${store.philosophy.ethicalFramework}
+- **Dialectical Method:** ${store.philosophy.dialecticalMethod}
+- **Cardinal Virtues:** ${store.philosophy.cardinalVirtues.length > 0 ? store.philosophy.cardinalVirtues.join(', ') : 'none selected'}
+- **Temperament:** certainty↔doubt ${store.philosophy.temperament.certaintyDoubt}/100, universal↔particular ${store.philosophy.temperament.universalParticular}/100, contemplative↔active ${store.philosophy.temperament.contemplativeActive}/100, individual↔collective ${store.philosophy.temperament.individualCollective}/100
+
+## Theater & Character
+- **Dramatic Archetype:** ${store.theater.dramaticArchetype}
+- **Dramatic Function:** ${store.theater.dramaticFunction}
+- **Theatrical Register:** ${store.theater.theatricalRegister}
+- **Acting Tools:** ${store.theater.actingTools.length > 0 ? store.theater.actingTools.join(', ') : 'none selected'}
+- **Brechtian Distance:** ${store.theater.brechtianDistance}/100
+- **Play Dynamics:** protagonist↔support ${store.theater.playDynamics.protagonistSupport}/100, text↔subtext ${store.theater.playDynamics.textSubtext}/100, mask↔authenticity ${store.theater.playDynamics.maskAuthenticity}/100, monologue↔dialogue ${store.theater.playDynamics.monologueDialogue}/100
+
+## Literary Style
+- **Narrative Voice:** ${store.literary.narrativeVoice}
+- **Literary Movement:** ${store.literary.literaryMovement}
+- **Textual Rhythm:** ${store.literary.textualRhythm}
+- **Rhetorical Devices:** ${store.literary.rhetoricalDevices.length > 0 ? store.literary.rhetoricalDevices.join(', ') : 'none selected'}
+- **Intertextuality:** ${store.literary.intertextuality}/100
+- **Prose Aesthetics:** ornate↔austere ${store.literary.proseAesthetics.ornateAustere}/100, abstract↔concrete ${store.literary.proseAesthetics.abstractConcrete}/100, lyrical↔analytical ${store.literary.proseAesthetics.lyricalAnalytical}/100, linear↔digressive ${store.literary.proseAesthetics.linearDigressive}/100, didactic↔evocative ${store.literary.proseAesthetics.didacticEvocative}/100
 
 ## Notable Features
 ${store.advanced.systemInstructions ? '- Custom system instructions defined' : ''}

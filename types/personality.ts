@@ -197,7 +197,93 @@ export interface AdvancedData {
   timeout: number
 }
 
-export type TabName = 'core' | 'communication' | 'expertise' | 'behavioral' | 'advanced'
+// === Philosophy Tab Types ===
+
+export type EpistemologicalStance = 'empiricist' | 'rationalist' | 'pragmatist' | 'constructivist' | 'skeptic'
+
+export type EthicalFramework = 'utilitarian' | 'deontological' | 'virtue' | 'care' | 'contextual'
+
+export type DialecticalMethod = 'socratic' | 'hegelian' | 'maieutic' | 'aporetic' | 'dialectical'
+
+export type CardinalVirtue = 'prudence' | 'justice' | 'courage' | 'temperance' | 'curiosity' | 'humility'
+
+export interface PhilosophicalTemperament {
+  certaintyDoubt: number
+  universalParticular: number
+  contemplativeActive: number
+  individualCollective: number
+}
+
+export type PhilosophicalTemperamentKey = keyof PhilosophicalTemperament
+
+export interface PhilosophyData {
+  epistemology: EpistemologicalStance
+  ethicalFramework: EthicalFramework
+  dialecticalMethod: DialecticalMethod
+  temperament: PhilosophicalTemperament
+  cardinalVirtues: CardinalVirtue[]
+}
+
+// === Theater Tab Types ===
+
+export type DramaticArchetype = 'sage' | 'guide' | 'trickster' | 'herald' | 'shapeshifter' | 'ally'
+
+export type DramaticFunction = 'mentor' | 'deuteragonist' | 'chorus' | 'deus-ex-machina' | 'narrator'
+
+export type TheatricalRegister = 'tragedy' | 'comedy' | 'drama' | 'epic' | 'absurd'
+
+export type ActingTool = 'given-circumstances' | 'super-objective' | 'emotional-memory' | 'physical-action' | 'subtext' | 'tempo-rhythm'
+
+export interface PlayDynamics {
+  protagonistSupport: number
+  textSubtext: number
+  maskAuthenticity: number
+  monologueDialogue: number
+}
+
+export type PlayDynamicsKey = keyof PlayDynamics
+
+export interface TheaterData {
+  dramaticArchetype: DramaticArchetype
+  dramaticFunction: DramaticFunction
+  theatricalRegister: TheatricalRegister
+  playDynamics: PlayDynamics
+  actingTools: ActingTool[]
+  brechtianDistance: number
+}
+
+// === Literary Style Tab Types ===
+
+export type NarrativeVoice = 'engaged-first' | 'objective-third' | 'omniscient' | 'stream' | 'epistolary'
+
+export type LiteraryMovement = 'classicism' | 'romanticism' | 'realism' | 'modernism' | 'minimalism' | 'postmodernism'
+
+export type RhetoricalDevice = 'metaphor' | 'irony' | 'anaphora' | 'antithesis' | 'hyperbole' | 'litote' | 'chiasmus'
+
+export type TextualRhythm = 'staccato' | 'legato' | 'mixed' | 'proustian'
+
+export interface ProseAesthetics {
+  ornateAustere: number
+  abstractConcrete: number
+  lyricalAnalytical: number
+  linearDigressive: number
+  didacticEvocative: number
+}
+
+export type ProseAestheticsKey = keyof ProseAesthetics
+
+export interface LiteraryData {
+  narrativeVoice: NarrativeVoice
+  literaryMovement: LiteraryMovement
+  rhetoricalDevices: RhetoricalDevice[]
+  proseAesthetics: ProseAesthetics
+  textualRhythm: TextualRhythm
+  intertextuality: number
+}
+
+// === Tab & Config Types ===
+
+export type TabName = 'core' | 'communication' | 'expertise' | 'behavioral' | 'philosophy' | 'theater' | 'literary' | 'advanced'
 
 export interface AgentConfig {
   version: string
@@ -212,6 +298,9 @@ export interface AgentConfig {
   communication: CommunicationData
   expertise: ExpertiseData
   behavioral: BehavioralData
+  philosophy: PhilosophyData
+  theater: TheaterData
+  literary: LiteraryData
   advanced: AdvancedData
   facets: Facets
 }
