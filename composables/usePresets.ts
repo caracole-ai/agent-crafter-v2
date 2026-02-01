@@ -98,6 +98,24 @@ export function usePresets() {
       store.literary.textualRhythm = preset.literary.textualRhythm
       store.literary.intertextuality = preset.literary.intertextuality
     }
+
+    // Advanced
+    if (preset.advanced) {
+      const a = preset.advanced
+      if (a.technicalCapabilities) store.advanced.technicalCapabilities = [...a.technicalCapabilities]
+      if (a.maxResponseLength) store.advanced.maxResponseLength = a.maxResponseLength
+      if (a.securityLevel) store.advanced.securityLevel = a.securityLevel
+      if (a.contentFilters) store.advanced.contentFilters = [...a.contentFilters]
+      if (a.systemInstructions !== undefined) store.advanced.systemInstructions = a.systemInstructions
+      if (a.userInstructions !== undefined) store.advanced.userInstructions = a.userInstructions
+      if (a.fallbackResponses !== undefined) store.advanced.fallbackResponses = a.fallbackResponses
+      if (a.conditionalBehaviors) store.advanced.conditionalBehaviors = [...a.conditionalBehaviors]
+      if (a.timeBehaviors) store.advanced.timeBehaviors = [...a.timeBehaviors]
+      if (a.preferredModel) store.advanced.preferredModel = a.preferredModel
+      if (a.responseFormat) store.advanced.responseFormat = a.responseFormat
+      if (a.temperature !== undefined) store.advanced.temperature = a.temperature
+      if (a.timeout !== undefined) store.advanced.timeout = a.timeout
+    }
   }
 
   return { presets, loadPreset }
