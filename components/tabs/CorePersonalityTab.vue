@@ -69,30 +69,43 @@ function onTraitUpdate(key: CoreTraitKey, val: number | number[]) {
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">🧠 {{ $t('core.title') }}</h2>
+    <div class="section-toggle-header mb-4">
+      <UCheckbox v-model="store.enabled.core._self" />
+      <h2 class="text-2xl font-bold">🧠 {{ $t('core.title') }}</h2>
+    </div>
 
-    <div class="space-y-8">
-      <div v-for="trait in traits" :key="trait.key" class="personality-trait">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="text-lg font-semibold">{{ trait.label }}</h3>
-          <span :class="[trait.color, 'font-bold']">{{ store.core[trait.key] }}</span>
-        </div>
-        <USlider
-          :model-value="store.core[trait.key]"
-          :min="0"
-          :max="100"
-          @update:model-value="onTraitUpdate(trait.key, $event)"
-        />
-        <div class="grid grid-cols-2 gap-4 mt-4">
-          <UiRangeSlider
-            v-for="facet in trait.facets"
-            :key="facet.key"
-            :model-value="store.facets[facet.key] ?? 50"
-            :label="facet.label"
-            size="sm"
-            @update:model-value="store.setFacet(facet.key, $event)"
-          />
-        </div>
+    <div :class="{ 'section-disabled-overlay': !store.enabled.core._self }">
+      <div class="space-y-2">
+        <UiToggleSection
+          v-for="trait in traits"
+          :key="trait.key"
+          v-model:enabled="store.enabled.core[trait.key]"
+          :title="trait.label"
+          :default-open="trait.key === 'extraversion'"
+        >
+          <div class="personality-trait">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-lg font-semibold">{{ trait.label }}</h3>
+              <span :class="[trait.color, 'font-bold']">{{ store.core[trait.key] }}</span>
+            </div>
+            <USlider
+              :model-value="store.core[trait.key]"
+              :min="0"
+              :max="100"
+              @update:model-value="onTraitUpdate(trait.key, $event)"
+            />
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <UiRangeSlider
+                v-for="facet in trait.facets"
+                :key="facet.key"
+                :model-value="store.facets[facet.key] ?? 50"
+                :label="facet.label"
+                size="sm"
+                @update:model-value="store.setFacet(facet.key, $event)"
+              />
+            </div>
+          </div>
+        </UiToggleSection>
       </div>
     </div>
   </UCard>

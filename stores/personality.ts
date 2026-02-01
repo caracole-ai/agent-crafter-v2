@@ -27,6 +27,7 @@ export interface EnabledState {
 }
 
 export interface AllEnabledState {
+  core: EnabledState
   communication: EnabledState
   expertise: EnabledState
   behavioral: EnabledState
@@ -39,6 +40,7 @@ export interface AllEnabledState {
 
 function createDefaultEnabled(): AllEnabledState {
   return {
+    core: { _self: true, extraversion: true, agreeableness: true, conscientiousness: true, emotionalStability: true, openness: true },
     communication: { _self: true, primaryStyle: true, modifiers: true, responseCharacteristics: true, tones: true },
     expertise: { _self: true, level: true, roleArchetype: true, industries: true, cognitive: true, learning: true },
     behavioral: { _self: true, proactivity: true, questioningStyle: true, errorHandling: true, responseBehavior: true, cultural: true, interactionPatterns: true },

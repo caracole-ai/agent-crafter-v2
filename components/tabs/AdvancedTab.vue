@@ -190,18 +190,18 @@ function handleValidate() {
             <UCard variant="soft" class="rounded-lg">
               <h4 class="font-medium mb-2">💾 {{ $t('advanced.exportOptions') }}</h4>
               <div class="space-y-2">
-                <UButton block color="green" @click="exportFullConfig">{{ $t('advanced.exportComplete') }}</UButton>
-                <UButton block color="green" variant="soft" @click="exportPromptOnly">{{ $t('advanced.exportPrompt') }}</UButton>
-                <UButton block color="green" variant="outline" @click="exportSummary">{{ $t('advanced.exportSummary') }}</UButton>
+                <UButton block color="success" @click="exportFullConfig">{{ $t('advanced.exportComplete') }}</UButton>
+                <UButton block color="success" variant="soft" @click="exportPromptOnly">{{ $t('advanced.exportPrompt') }}</UButton>
+                <UButton block color="success" variant="outline" @click="exportSummary">{{ $t('advanced.exportSummary') }}</UButton>
               </div>
             </UCard>
             <UCard variant="soft" class="rounded-lg">
               <h4 class="font-medium mb-2">📥 {{ $t('advanced.importOptions') }}</h4>
               <div class="space-y-2">
                 <input ref="fileInput" type="file" accept=".json" class="hidden" @change="handleImport" />
-                <UButton block color="blue" @click="fileInput?.click()">{{ $t('advanced.importConfig') }}</UButton>
-                <UButton block color="blue" variant="soft" @click="handleCommunityPreset">{{ $t('advanced.loadCommunityPreset') }}</UButton>
-                <UButton block color="blue" variant="outline" @click="handleValidate">{{ $t('advanced.validateConfig') }}</UButton>
+                <UButton block color="info" @click="fileInput?.click()">{{ $t('advanced.importConfig') }}</UButton>
+                <UButton block color="info" variant="soft" @click="handleCommunityPreset">{{ $t('advanced.loadCommunityPreset') }}</UButton>
+                <UButton block color="info" variant="outline" @click="handleValidate">{{ $t('advanced.validateConfig') }}</UButton>
               </div>
             </UCard>
           </div>

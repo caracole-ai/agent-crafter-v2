@@ -18,7 +18,9 @@ export function usePresets() {
     const preset = presets.find(p => p.key === presetKey)
     if (!preset) return
 
-    // Core traits (always present)
+    // Core traits
+    store.enabled.core._self = true
+    enableAllSubs('core')
     ;(Object.keys(preset.core) as CoreTraitKey[]).forEach((trait) => {
       store.setCoreTrait(trait, preset.core[trait])
     })

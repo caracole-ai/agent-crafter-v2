@@ -59,7 +59,7 @@ const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
           v-for="tab in tabs"
           :key="tab.key"
           class="header-tab"
-          :class="{ active: store.activeTab === tab.key, disabled: tab.key !== 'core' && !store.enabled[tab.key]?._self }"
+          :class="{ active: store.activeTab === tab.key, disabled: !store.enabled[tab.key]?._self }"
           @click="store.switchTab(tab.key)"
         >
           <span class="hidden sm:inline">{{ tab.emoji }}</span> {{ t(tab.labelKey) }}
