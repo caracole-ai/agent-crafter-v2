@@ -110,6 +110,7 @@ function handleValidate() {
             <UTextarea
               v-model="store.advanced.systemInstructions"
               :rows="4"
+              class="w-full"
               placeholder="Define specific behaviors, rules, or constraints for your agent..."
               :resize="false"
             />
@@ -119,6 +120,7 @@ function handleValidate() {
             <UTextarea
               v-model="store.advanced.userInstructions"
               :rows="3"
+              class="w-full"
               placeholder="Instructions that will be shared with users about this agent..."
               :resize="false"
             />
@@ -128,6 +130,7 @@ function handleValidate() {
             <UTextarea
               v-model="store.advanced.fallbackResponses"
               :rows="2"
+              class="w-full"
               placeholder="Custom responses when the agent cannot fulfill a request..."
               :resize="false"
             />
