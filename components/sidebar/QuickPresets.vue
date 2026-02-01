@@ -3,18 +3,18 @@ const { presets, loadPreset } = usePresets()
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-6 glass-effect">
-    <h3 class="text-lg font-semibold text-gray-800 mb-4">⚡ Quick Presets</h3>
+  <UCard class="glass-effect">
+    <h3 class="text-lg font-semibold mb-4">⚡ Quick Presets</h3>
     <div class="space-y-2">
       <button
         v-for="preset in presets"
         :key="preset.key"
-        class="preset-card w-full p-3 text-left border border-gray-200 rounded-lg hover:border-blue-500"
+        class="preset-card w-full p-3 text-left border border-[var(--ui-border)] rounded-lg hover:border-[var(--ui-border-active)] bg-[var(--ui-bg)] transition-all"
         @click="loadPreset(preset.key)"
       >
         <div class="font-medium">{{ preset.emoji }} {{ preset.label }}</div>
-        <div class="text-sm text-gray-500">{{ preset.description }}</div>
+        <div class="text-sm text-[var(--ui-text-dimmed)]">{{ preset.description }}</div>
       </button>
     </div>
-  </div>
+  </UCard>
 </template>

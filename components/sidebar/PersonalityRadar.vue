@@ -27,27 +27,35 @@ const chartData = computed(() => ({
   ],
 }))
 
-const chartOptions = {
-  responsive: true,
-  animation: { duration: 0 },
-  scales: {
-    r: {
-      beginAtZero: true,
-      max: 100,
-      ticks: { display: false },
+const colorMode = useColorMode()
+
+const chartOptions = computed(() => {
+  const isDark = colorMode.value === 'dark'
+  return {
+    responsive: true,
+    animation: { duration: 0 },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 100,
+        ticks: { display: false },
+        grid: { color: isDark ? 'rgba(148, 163, 184, 0.2)' : 'rgba(0, 0, 0, 0.1)' },
+        angleLines: { color: isDark ? 'rgba(148, 163, 184, 0.2)' : 'rgba(0, 0, 0, 0.1)' },
+        pointLabels: { color: isDark ? '#cbd5e1' : '#374151' },
+      },
     },
-  },
-  plugins: {
-    legend: { display: false },
-  },
-} as const
+    plugins: {
+      legend: { display: false },
+    },
+  }
+})
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-6 glass-effect">
-    <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Personality Radar</h3>
+  <UCard class="glass-effect">
+    <h3 class="text-lg font-semibold mb-4">📊 Personality Radar</h3>
     <div class="max-w-[300px] mx-auto">
       <Radar :data="chartData" :options="chartOptions" />
     </div>
-  </div>
+  </UCard>
 </template>

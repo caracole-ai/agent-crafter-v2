@@ -18,13 +18,13 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8 glass-effect">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">💬 Communication Style Matrix</h2>
+  <UCard class="glass-effect">
+    <h2 class="text-2xl font-bold mb-6">💬 Communication Style Matrix</h2>
 
     <div class="space-y-8">
       <!-- Primary Style -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Primary Style</h3>
+        <h3 class="text-lg font-semibold mb-4">Primary Style</h3>
         <UiRadioCardGroup
           :model-value="store.communication.primaryStyle"
           :options="primaryStyles"
@@ -34,7 +34,7 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 
       <!-- Style Modifiers -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Style Modifiers</h3>
+        <h3 class="text-lg font-semibold mb-4">Style Modifiers</h3>
         <UiCheckboxGroup
           :model-value="store.communication.modifiers"
           :options="communicationModifiers"
@@ -44,7 +44,7 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 
       <!-- Response Characteristics -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-6">Response Characteristics</h3>
+        <h3 class="text-lg font-semibold mb-6">Response Characteristics</h3>
 
         <!-- Verbosity -->
         <div class="mb-6">
@@ -58,21 +58,21 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
             right-label="Exhaustif"
             @update:model-value="store.communication.verbosity = $event"
           />
-          <div class="text-sm text-gray-600 mt-2">{{ verbosityDescription }}</div>
+          <div class="text-sm text-[var(--ui-text-dimmed)] mt-2">{{ verbosityDescription }}</div>
         </div>
 
         <!-- Response Structure -->
         <div class="mb-6">
-          <label class="font-medium text-gray-700 mb-3 block">Response Structure</label>
-          <select
-            :value="store.communication.structure"
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            @change="store.communication.structure = ($event.target as HTMLSelectElement).value as ResponseStructure"
-          >
-            <option v-for="opt in responseStructures" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </select>
+          <UFormField label="Response Structure">
+            <USelect
+              :model-value="store.communication.structure"
+              :items="responseStructures"
+              value-key="value"
+              label-key="label"
+              class="w-full"
+              @update:model-value="store.communication.structure = $event as ResponseStructure"
+            />
+          </UFormField>
         </div>
 
         <!-- Tone Sliders -->
@@ -90,5 +90,5 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
         </div>
       </div>
     </div>
-  </div>
+  </UCard>
 </template>

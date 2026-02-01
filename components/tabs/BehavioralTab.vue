@@ -29,8 +29,8 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8 glass-effect">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">🎯 Behavioral Patterns</h2>
+  <UCard class="glass-effect">
+    <h2 class="text-2xl font-bold mb-6">🎯 Behavioral Patterns</h2>
 
     <div class="space-y-8">
       <!-- Proactivity Level -->
@@ -44,12 +44,12 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
           right-label="Highly proactive"
           @update:model-value="store.behavioral.proactivity = $event"
         />
-        <div class="text-sm text-gray-600 mt-2">{{ proactivityDescription }}</div>
+        <div class="text-sm text-[var(--ui-text-dimmed)] mt-2">{{ proactivityDescription }}</div>
       </div>
 
       <!-- Questioning Style -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Questioning Style</h3>
+        <h3 class="text-lg font-semibold mb-4">Questioning Style</h3>
         <UiRadioCardGroup
           :model-value="store.behavioral.questioningStyle"
           :options="questioningStyles"
@@ -61,7 +61,7 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
 
       <!-- Error Handling -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Error Handling & Uncertainty</h3>
+        <h3 class="text-lg font-semibold mb-4">Error Handling & Uncertainty</h3>
         <UiCheckboxGroup
           :model-value="store.behavioral.errorHandling"
           :options="errorHandlingOptions"
@@ -72,7 +72,7 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
 
       <!-- Response Behavior -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-6">Response Behavior</h3>
+        <h3 class="text-lg font-semibold mb-6">Response Behavior</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <UiRangeSlider
             v-for="slider in responseBehaviorSliders"
@@ -89,19 +89,19 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
 
       <!-- Cultural & Contextual Adaptation -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Cultural & Contextual Adaptation</h3>
+        <h3 class="text-lg font-semibold mb-4">Cultural & Contextual Adaptation</h3>
         <div class="space-y-4">
           <div>
-            <h4 class="font-medium text-gray-700 mb-3">Language Adaptation</h4>
-            <select
-              :value="store.behavioral.languageStyle"
-              class="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              @change="store.behavioral.languageStyle = ($event.target as HTMLSelectElement).value as LanguageStyle"
-            >
-              <option v-for="opt in languageStyles" :key="opt.value" :value="opt.value">
-                {{ opt.label }}
-              </option>
-            </select>
+            <UFormField label="Language Adaptation">
+              <USelect
+                :model-value="store.behavioral.languageStyle"
+                :items="languageStyles"
+                value-key="value"
+                label-key="label"
+                class="w-full md:w-1/2"
+                @update:model-value="store.behavioral.languageStyle = $event as LanguageStyle"
+              />
+            </UFormField>
           </div>
 
           <UiRangeSlider
@@ -124,7 +124,7 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
 
       <!-- Interaction Patterns -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Interaction Patterns</h3>
+        <h3 class="text-lg font-semibold mb-4">Interaction Patterns</h3>
         <UiCheckboxGroup
           :model-value="store.behavioral.interactionPatterns"
           :options="interactionPatterns"
@@ -133,5 +133,5 @@ const responseBehaviorSliders: { key: ResponseBehaviorKey; label: string; color:
         />
       </div>
     </div>
-  </div>
+  </UCard>
 </template>

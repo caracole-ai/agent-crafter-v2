@@ -13,7 +13,7 @@ const tabs: { key: TabName; emoji: string; label: string }[] = [
 </script>
 
 <template>
-  <div class="flex flex-wrap border-b border-gray-200 mb-6">
+  <div class="flex flex-wrap border-b border-[var(--ui-border)] mb-6">
     <button
       v-for="tab in tabs"
       :key="tab.key"

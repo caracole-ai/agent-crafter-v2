@@ -49,13 +49,13 @@ function handleValidate() {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8 glass-effect">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">⚙️ Advanced Configuration</h2>
+  <UCard class="glass-effect">
+    <h2 class="text-2xl font-bold mb-6">⚙️ Advanced Configuration</h2>
 
     <div class="space-y-8">
       <!-- Technical Capabilities -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Technical Capabilities</h3>
+        <h3 class="text-lg font-semibold mb-4">Technical Capabilities</h3>
         <UiCheckboxGroup
           :model-value="store.advanced.technicalCapabilities"
           :options="technicalCapabilities"
@@ -66,33 +66,33 @@ function handleValidate() {
 
       <!-- Response Limits & Security -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-6">Response Limits & Security</h3>
+        <h3 class="text-lg font-semibold mb-6">Response Limits & Security</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Max Response Length</label>
-            <select
-              :value="store.advanced.maxResponseLength"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              @change="store.advanced.maxResponseLength = ($event.target as HTMLSelectElement).value as MaxResponseLength"
-            >
-              <option v-for="opt in maxResponseLengths" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
-            </select>
-          </div>
+          <UFormField label="Max Response Length">
+            <USelect
+              :model-value="store.advanced.maxResponseLength"
+              :items="maxResponseLengths"
+              value-key="value"
+              label-key="label"
+              class="w-full"
+              @update:model-value="store.advanced.maxResponseLength = $event as MaxResponseLength"
+            />
+          </UFormField>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Security Level</label>
-            <select
-              :value="store.advanced.securityLevel"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              @change="store.advanced.securityLevel = ($event.target as HTMLSelectElement).value as SecurityLevel"
-            >
-              <option v-for="opt in securityLevels" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
-            </select>
-          </div>
+          <UFormField label="Security Level">
+            <USelect
+              :model-value="store.advanced.securityLevel"
+              :items="securityLevels"
+              value-key="value"
+              label-key="label"
+              class="w-full"
+              @update:model-value="store.advanced.securityLevel = $event as SecurityLevel"
+            />
+          </UFormField>
         </div>
 
         <div class="mt-4">
-          <h4 class="font-medium text-gray-700 mb-3">Content Filters</h4>
+          <h4 class="font-medium mb-3">Content Filters</h4>
           <UiCheckboxGroup
             :model-value="store.advanced.contentFilters"
             :options="contentFilters"
@@ -104,49 +104,43 @@ function handleValidate() {
 
       <!-- Custom Instructions -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Custom Instructions</h3>
+        <h3 class="text-lg font-semibold mb-4">Custom Instructions</h3>
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">System Instructions</label>
-            <textarea
+          <UFormField label="System Instructions" hint="These instructions will be processed at the system level">
+            <UTextarea
               v-model="store.advanced.systemInstructions"
-              rows="4"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 resize-none"
+              :rows="4"
               placeholder="Define specific behaviors, rules, or constraints for your agent..."
+              :resize="false"
             />
-            <div class="text-xs text-gray-500 mt-1">These instructions will be processed at the system level</div>
-          </div>
+          </UFormField>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">User Context Instructions</label>
-            <textarea
+          <UFormField label="User Context Instructions" hint="These will be visible to users interacting with the agent">
+            <UTextarea
               v-model="store.advanced.userInstructions"
-              rows="3"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 resize-none"
+              :rows="3"
               placeholder="Instructions that will be shared with users about this agent..."
+              :resize="false"
             />
-            <div class="text-xs text-gray-500 mt-1">These will be visible to users interacting with the agent</div>
-          </div>
+          </UFormField>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Fallback Responses</label>
-            <textarea
+          <UFormField label="Fallback Responses" hint="Comma-separated responses for uncertainty situations">
+            <UTextarea
               v-model="store.advanced.fallbackResponses"
-              rows="2"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 resize-none"
+              :rows="2"
               placeholder="Custom responses when the agent cannot fulfill a request..."
+              :resize="false"
             />
-            <div class="text-xs text-gray-500 mt-1">Comma-separated responses for uncertainty situations</div>
-          </div>
+          </UFormField>
         </div>
       </div>
 
       <!-- Conditional Behaviors -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Conditional Behaviors</h3>
+        <h3 class="text-lg font-semibold mb-4">Conditional Behaviors</h3>
         <div class="space-y-4">
-          <div class="p-4 bg-gray-50 rounded-lg">
-            <h4 class="font-medium text-gray-700 mb-3">Context-Based Adaptations</h4>
+          <div class="p-4 bg-[var(--ui-bg-elevated)] rounded-lg">
+            <h4 class="font-medium mb-3">Context-Based Adaptations</h4>
             <UiCheckboxGroup
               :model-value="store.advanced.conditionalBehaviors"
               :options="conditionalBehaviors"
@@ -155,8 +149,8 @@ function handleValidate() {
             />
           </div>
 
-          <div class="p-4 bg-blue-50 rounded-lg">
-            <h4 class="font-medium text-gray-700 mb-3">Time-Based Behaviors</h4>
+          <div class="p-4 bg-[var(--ui-bg-elevated)] rounded-lg">
+            <h4 class="font-medium mb-3">Time-Based Behaviors</h4>
             <UiCheckboxGroup
               :model-value="store.advanced.timeBehaviors"
               :options="timeBehaviors"
@@ -169,29 +163,29 @@ function handleValidate() {
 
       <!-- Integration Settings -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Integration Settings</h3>
+        <h3 class="text-lg font-semibold mb-4">Integration Settings</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Model</label>
-            <select
-              :value="store.advanced.preferredModel"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              @change="store.advanced.preferredModel = ($event.target as HTMLSelectElement).value as PreferredModel"
-            >
-              <option v-for="opt in preferredModels" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
-            </select>
-          </div>
+          <UFormField label="Preferred Model">
+            <USelect
+              :model-value="store.advanced.preferredModel"
+              :items="preferredModels"
+              value-key="value"
+              label-key="label"
+              class="w-full"
+              @update:model-value="store.advanced.preferredModel = $event as PreferredModel"
+            />
+          </UFormField>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Response Format</label>
-            <select
-              :value="store.advanced.responseFormat"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              @change="store.advanced.responseFormat = ($event.target as HTMLSelectElement).value as ResponseFormat"
-            >
-              <option v-for="opt in responseFormats" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
-            </select>
-          </div>
+          <UFormField label="Response Format">
+            <USelect
+              :model-value="store.advanced.responseFormat"
+              :items="responseFormats"
+              value-key="value"
+              label-key="label"
+              class="w-full"
+              @update:model-value="store.advanced.responseFormat = $event as ResponseFormat"
+            />
+          </UFormField>
 
           <UiRangeSlider
             :model-value="store.advanced.temperature"
@@ -222,58 +216,40 @@ function handleValidate() {
 
       <!-- Configuration Management -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Configuration Management</h3>
+        <h3 class="text-lg font-semibold mb-4">Configuration Management</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 bg-green-50 rounded-lg">
-            <h4 class="font-medium text-green-800 mb-2">💾 Export Options</h4>
+          <UCard variant="soft" class="rounded-lg">
+            <h4 class="font-medium mb-2">💾 Export Options</h4>
             <div class="space-y-2">
-              <button
-                class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="exportFullConfig"
-              >
+              <UButton block color="green" @click="exportFullConfig">
                 Export Complete Configuration
-              </button>
-              <button
-                class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="exportPromptOnly"
-              >
+              </UButton>
+              <UButton block color="green" variant="soft" @click="exportPromptOnly">
                 Export as Prompt Template
-              </button>
-              <button
-                class="w-full bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="exportSummary"
-              >
+              </UButton>
+              <UButton block color="green" variant="outline" @click="exportSummary">
                 Export Summary Report
-              </button>
+              </UButton>
             </div>
-          </div>
+          </UCard>
 
-          <div class="p-4 bg-blue-50 rounded-lg">
-            <h4 class="font-medium text-blue-800 mb-2">📥 Import Options</h4>
+          <UCard variant="soft" class="rounded-lg">
+            <h4 class="font-medium mb-2">📥 Import Options</h4>
             <div class="space-y-2">
               <input ref="fileInput" type="file" accept=".json" class="hidden" @change="handleImport" />
-              <button
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="fileInput?.click()"
-              >
+              <UButton block color="blue" @click="fileInput?.click()">
                 Import Configuration
-              </button>
-              <button
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="handleCommunityPreset"
-              >
+              </UButton>
+              <UButton block color="blue" variant="soft" @click="handleCommunityPreset">
                 Load Community Preset
-              </button>
-              <button
-                class="w-full bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-sm transition-all"
-                @click="handleValidate"
-              >
+              </UButton>
+              <UButton block color="blue" variant="outline" @click="handleValidate">
                 Validate Configuration
-              </button>
+              </UButton>
             </div>
-          </div>
+          </UCard>
         </div>
       </div>
     </div>
-  </div>
+  </UCard>
 </template>

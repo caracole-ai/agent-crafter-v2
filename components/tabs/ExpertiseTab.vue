@@ -25,13 +25,13 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8 glass-effect">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">💼 Professional Expertise</h2>
+  <UCard class="glass-effect">
+    <h2 class="text-2xl font-bold mb-6">💼 Professional Expertise</h2>
 
     <div class="space-y-8">
       <!-- Knowledge Level -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Knowledge Level</h3>
+        <h3 class="text-lg font-semibold mb-4">Knowledge Level</h3>
         <UiRadioCardGroup
           :model-value="store.expertise.level"
           :options="expertiseLevels"
@@ -43,7 +43,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Role Archetype -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Role Archetype</h3>
+        <h3 class="text-lg font-semibold mb-4">Role Archetype</h3>
         <UiRadioCardGroup
           :model-value="store.expertise.roleArchetype"
           :options="roleArchetypes"
@@ -55,7 +55,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Industry Focus -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Industry Focus (Multi-select)</h3>
+        <h3 class="text-lg font-semibold mb-4">Industry Focus (Multi-select)</h3>
         <UiCheckboxGroup
           :model-value="store.expertise.industries"
           :options="industries"
@@ -66,10 +66,10 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Cognitive Approach -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Cognitive Approach</h3>
+        <h3 class="text-lg font-semibold mb-4">Cognitive Approach</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 class="font-medium text-gray-700 mb-3">Thinking Styles (Multi-select)</h4>
+            <h4 class="font-medium mb-3">Thinking Styles (Multi-select)</h4>
             <UiCheckboxGroup
               :model-value="store.expertise.thinkingStyles"
               :options="thinkingStyles"
@@ -79,7 +79,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
           </div>
 
           <div>
-            <h4 class="font-medium text-gray-700 mb-3">Problem Solving Approach</h4>
+            <h4 class="font-medium mb-3">Problem Solving Approach</h4>
             <div class="space-y-4">
               <UiRangeSlider
                 v-for="slider in problemSolvingSliders"
@@ -99,7 +99,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Learning Approach -->
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Learning & Teaching Approach</h3>
+        <h3 class="text-lg font-semibold mb-4">Learning & Teaching Approach</h3>
         <UiCheckboxGroup
           :model-value="store.expertise.learningApproach"
           :options="learningApproaches"
@@ -108,5 +108,5 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
         />
       </div>
     </div>
-  </div>
+  </UCard>
 </template>

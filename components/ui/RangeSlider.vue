@@ -26,32 +26,30 @@ const emit = defineEmits<{
   'update:modelValue': [value: number]
 }>()
 
-function onInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  emit('update:modelValue', Number(target.value))
-}
-
 const shown = computed(() => props.displayValue ?? String(props.modelValue))
+
+function onUpdate(val: number | number[]) {
+  emit('update:modelValue', Array.isArray(val) ? val[0] : val)
+}
 </script>
 
 <template>
   <div>
     <div v-if="label" class="flex justify-between items-center" :class="size === 'sm' ? 'mb-1' : 'mb-2'">
-      <label class="text-gray-700" :class="size === 'sm' ? 'text-sm' : 'font-medium'">{{ label }}</label>
+      <label :class="size === 'sm' ? 'text-sm' : 'font-medium'">{{ label }}</label>
       <span :class="[valueColor, 'font-bold']">{{ shown }}</span>
     </div>
-    <input
-      type="range"
-      class="range-slider"
+    <USlider
+      :model-value="modelValue"
       :min="min"
       :max="max"
       :step="step"
-      :value="modelValue"
-      @input="onInput"
+      :size="size === 'sm' ? 'sm' : 'md'"
+      @update:model-value="onUpdate"
     />
     <div
       v-if="leftLabel || rightLabel || centerLabel"
-      class="flex justify-between text-xs text-gray-500 mt-1"
+      class="flex justify-between text-xs text-[var(--ui-text-dimmed)] mt-1"
     >
       <span>{{ leftLabel }}</span>
       <span v-if="centerLabel">{{ centerLabel }}</span>

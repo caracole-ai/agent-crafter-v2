@@ -18,7 +18,8 @@ const budgetColorClass = computed(() => {
           <h1 class="text-4xl font-bold">🧠 Agent Crafter v2.0</h1>
           <p class="text-blue-100 mt-2">Professional AI Personality Builder</p>
         </div>
-        <div class="text-right">
+        <div class="flex items-center gap-4">
+          <UColorModeButton />
           <div class="budget-indicator text-white px-4 py-2 rounded-lg" :class="budgetColorClass">
             <div class="text-sm">Personality Budget</div>
             <div class="text-xl font-bold">{{ store.budgetUsed }} / {{ store.budgetTotal }}</div>

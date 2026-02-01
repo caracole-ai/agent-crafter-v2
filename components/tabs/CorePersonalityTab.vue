@@ -60,25 +60,27 @@ const traits = [
     ],
   },
 ]
+
+function onTraitUpdate(key: CoreTraitKey, val: number | number[]) {
+  store.setCoreTrait(key, Array.isArray(val) ? val[0] : val)
+}
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8 glass-effect">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">🧠 Core Personality (Big 5)</h2>
+  <UCard class="glass-effect">
+    <h2 class="text-2xl font-bold mb-6">🧠 Core Personality (Big 5)</h2>
 
     <div class="space-y-8">
       <div v-for="trait in traits" :key="trait.key" class="personality-trait">
         <div class="flex justify-between items-center mb-3">
-          <h3 class="text-lg font-semibold text-gray-700">{{ trait.label }}</h3>
+          <h3 class="text-lg font-semibold">{{ trait.label }}</h3>
           <span :class="[trait.color, 'font-bold']">{{ store.core[trait.key] }}</span>
         </div>
-        <input
-          type="range"
-          class="range-slider"
-          min="0"
-          max="100"
-          :value="store.core[trait.key]"
-          @input="store.setCoreTrait(trait.key, Number(($event.target as HTMLInputElement).value))"
+        <USlider
+          :model-value="store.core[trait.key]"
+          :min="0"
+          :max="100"
+          @update:model-value="onTraitUpdate(trait.key, $event)"
         />
         <div class="grid grid-cols-2 gap-4 mt-4">
           <UiRangeSlider
@@ -92,5 +94,5 @@ const traits = [
         </div>
       </div>
     </div>
-  </div>
+  </UCard>
 </template>
