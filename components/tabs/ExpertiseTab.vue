@@ -27,86 +27,102 @@ const problemSolvingSliders = computed(() => [
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">💼 {{ $t('expertise.title') }}</h2>
+    <div class="section-toggle-header mb-4">
+      <UCheckbox v-model="store.enabled.expertise._self" />
+      <h2 class="text-2xl font-bold">💼 {{ $t('expertise.title') }}</h2>
+    </div>
 
-    <div class="space-y-8">
-      <!-- Knowledge Level -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.knowledgeLevel') }}</h3>
-        <UiRadioCardGroup
-          :model-value="store.expertise.level"
-          :options="expertiseLevels"
-          columns="grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
-          active-color="border-green-500 bg-green-50"
-          @update:model-value="store.expertise.level = $event as ExpertiseLevel"
-        />
-      </div>
+    <div :class="{ 'section-disabled-overlay': !store.enabled.expertise._self }">
+      <div class="space-y-2">
+        <!-- Knowledge Level -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.expertise.level"
+          :title="$t('expertise.knowledgeLevel')"
+          :default-open="true"
+        >
+          <UiRadioCardGroup
+            :model-value="store.expertise.level"
+            :options="expertiseLevels"
+            columns="grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
+            active-color="border-green-500 bg-green-50"
+            @update:model-value="store.expertise.level = $event as ExpertiseLevel"
+          />
+        </UiToggleSection>
 
-      <!-- Role Archetype -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.roleArchetype') }}</h3>
-        <UiRadioCardGroup
-          :model-value="store.expertise.roleArchetype"
-          :options="roleArchetypes"
-          columns="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          active-color="border-purple-500 bg-purple-50"
-          @update:model-value="store.expertise.roleArchetype = $event as RoleArchetype"
-        />
-      </div>
+        <!-- Role Archetype -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.expertise.roleArchetype"
+          :title="$t('expertise.roleArchetype')"
+        >
+          <UiRadioCardGroup
+            :model-value="store.expertise.roleArchetype"
+            :options="roleArchetypes"
+            columns="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            active-color="border-purple-500 bg-purple-50"
+            @update:model-value="store.expertise.roleArchetype = $event as RoleArchetype"
+          />
+        </UiToggleSection>
 
-      <!-- Industry Focus -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.industryFocus') }}</h3>
-        <UiCheckboxGroup
-          :model-value="store.expertise.industries"
-          :options="industries"
-          columns="grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          @update:model-value="store.expertise.industries = $event as Industry[]"
-        />
-      </div>
+        <!-- Industry Focus -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.expertise.industries"
+          :title="$t('expertise.industryFocus')"
+        >
+          <UiCheckboxGroup
+            :model-value="store.expertise.industries"
+            :options="industries"
+            columns="grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            @update:model-value="store.expertise.industries = $event as Industry[]"
+          />
+        </UiToggleSection>
 
-      <!-- Cognitive Approach -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.cognitiveApproach') }}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="font-medium mb-3">{{ $t('expertise.thinkingStyles') }}</h4>
-            <UiCheckboxGroup
-              :model-value="store.expertise.thinkingStyles"
-              :options="thinkingStyles"
-              columns="grid-cols-1"
-              @update:model-value="store.expertise.thinkingStyles = $event as ThinkingStyle[]"
-            />
-          </div>
-
-          <div>
-            <h4 class="font-medium mb-3">{{ $t('expertise.problemSolving') }}</h4>
-            <div class="space-y-4">
-              <UiRangeSlider
-                v-for="slider in problemSolvingSliders"
-                :key="slider.key"
-                :model-value="store.expertise.problemSolving[slider.key]"
-                :label="slider.label"
-                :value-color="slider.color"
-                :left-label="slider.left"
-                :right-label="slider.right"
-                size="sm"
-                @update:model-value="store.expertise.problemSolving[slider.key] = $event"
+        <!-- Cognitive Approach -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.expertise.cognitive"
+          :title="$t('expertise.cognitiveApproach')"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-medium mb-3">{{ $t('expertise.thinkingStyles') }}</h4>
+              <UiCheckboxGroup
+                :model-value="store.expertise.thinkingStyles"
+                :options="thinkingStyles"
+                columns="grid-cols-1"
+                @update:model-value="store.expertise.thinkingStyles = $event as ThinkingStyle[]"
               />
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Learning Approach -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.learningTeaching') }}</h3>
-        <UiCheckboxGroup
-          :model-value="store.expertise.learningApproach"
-          :options="learningApproaches"
-          columns="grid-cols-2 md:grid-cols-3"
-          @update:model-value="store.expertise.learningApproach = $event as LearningApproach[]"
-        />
+            <div>
+              <h4 class="font-medium mb-3">{{ $t('expertise.problemSolving') }}</h4>
+              <div class="space-y-4">
+                <UiRangeSlider
+                  v-for="slider in problemSolvingSliders"
+                  :key="slider.key"
+                  :model-value="store.expertise.problemSolving[slider.key]"
+                  :label="slider.label"
+                  :value-color="slider.color"
+                  :left-label="slider.left"
+                  :right-label="slider.right"
+                  size="sm"
+                  @update:model-value="store.expertise.problemSolving[slider.key] = $event"
+                />
+              </div>
+            </div>
+          </div>
+        </UiToggleSection>
+
+        <!-- Learning Approach -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.expertise.learning"
+          :title="$t('expertise.learningTeaching')"
+        >
+          <UiCheckboxGroup
+            :model-value="store.expertise.learningApproach"
+            :options="learningApproaches"
+            columns="grid-cols-2 md:grid-cols-3"
+            @update:model-value="store.expertise.learningApproach = $event as LearningApproach[]"
+          />
+        </UiToggleSection>
       </div>
     </div>
   </UCard>

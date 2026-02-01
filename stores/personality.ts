@@ -21,8 +21,37 @@ import type {
   LanguageStyle,
 } from '~/types/personality'
 
+export interface EnabledState {
+  _self: boolean
+  [key: string]: boolean
+}
+
+export interface AllEnabledState {
+  communication: EnabledState
+  expertise: EnabledState
+  behavioral: EnabledState
+  philosophy: EnabledState
+  theater: EnabledState
+  literary: EnabledState
+  advanced: EnabledState
+  [key: string]: EnabledState
+}
+
+function createDefaultEnabled(): AllEnabledState {
+  return {
+    communication: { _self: true, primaryStyle: true, modifiers: true, responseCharacteristics: true, tones: true },
+    expertise: { _self: true, level: true, roleArchetype: true, industries: true, cognitive: true, learning: true },
+    behavioral: { _self: true, proactivity: true, questioningStyle: true, errorHandling: true, responseBehavior: true, cultural: true, interactionPatterns: true },
+    philosophy: { _self: true, epistemology: true, ethicalFramework: true, dialecticalMethod: true, temperament: true, virtues: true },
+    theater: { _self: true, archetype: true, function: true, register: true, dynamics: true, actingTools: true, brechtian: true },
+    literary: { _self: true, narrativeVoice: true, movement: true, rhetoricalDevices: true, prose: true, rhythm: true, intertextuality: true },
+    advanced: { _self: true, capabilities: true, responseLimits: true, instructions: true, conditionalBehaviors: true, integration: true, configManagement: true },
+  }
+}
+
 export const usePersonalityStore = defineStore('personality', () => {
   const activeTab = ref<TabName>('core')
+  const enabled = reactive<AllEnabledState>(createDefaultEnabled())
 
   const core = reactive<CoreTraits>({
     extraversion: 50,
@@ -219,6 +248,9 @@ export const usePersonalityStore = defineStore('personality', () => {
     advanced.responseFormat = 'adaptive'
     advanced.temperature = 0.7
     advanced.timeout = 30
+    // Reset enabled state
+    const defaults = createDefaultEnabled()
+    Object.assign(enabled, defaults)
   }
 
   function loadConfig(config: Record<string, any>) {
@@ -255,10 +287,18 @@ export const usePersonalityStore = defineStore('personality', () => {
     }
     if (config.advanced) Object.assign(advanced, config.advanced)
     if (config.facets) Object.assign(facets, config.facets)
+    if (config.enabled) {
+      for (const cat of Object.keys(config.enabled)) {
+        if (enabled[cat]) {
+          Object.assign(enabled[cat], config.enabled[cat])
+        }
+      }
+    }
   }
 
   return {
     activeTab,
+    enabled,
     core,
     facets,
     communication,

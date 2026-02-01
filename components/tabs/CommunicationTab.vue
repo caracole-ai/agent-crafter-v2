@@ -24,75 +24,91 @@ const toneSliders = computed(() => [
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">💬 {{ $t('communication.title') }}</h2>
+    <div class="section-toggle-header mb-4">
+      <UCheckbox v-model="store.enabled.communication._self" />
+      <h2 class="text-2xl font-bold">💬 {{ $t('communication.title') }}</h2>
+    </div>
 
-    <div class="space-y-8">
-      <!-- Primary Style -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('communication.primaryStyle') }}</h3>
-        <UiRadioCardGroup
-          :model-value="store.communication.primaryStyle"
-          :options="primaryStyles"
-          @update:model-value="store.communication.primaryStyle = $event as PrimaryStyle"
-        />
-      </div>
-
-      <!-- Style Modifiers -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">{{ $t('communication.styleModifiers') }}</h3>
-        <UiCheckboxGroup
-          :model-value="store.communication.modifiers"
-          :options="communicationModifiers"
-          @update:model-value="store.communication.modifiers = $event as CommunicationModifier[]"
-        />
-      </div>
-
-      <!-- Response Characteristics -->
-      <div>
-        <h3 class="text-lg font-semibold mb-6">{{ $t('communication.responseCharacteristics') }}</h3>
-
-        <!-- Verbosity -->
-        <div class="mb-6">
-          <UiRangeSlider
-            :model-value="store.communication.verbosity"
-            :min="1"
-            :max="10"
-            :label="$t('communication.verbosityLevel')"
-            :left-label="$t('communication.verbosityLeft')"
-            :center-label="$t('communication.verbosityCenter')"
-            :right-label="$t('communication.verbosityRight')"
-            @update:model-value="store.communication.verbosity = $event"
+    <div :class="{ 'section-disabled-overlay': !store.enabled.communication._self }">
+      <div class="space-y-2">
+        <!-- Primary Style -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.communication.primaryStyle"
+          :title="$t('communication.primaryStyle')"
+          :default-open="true"
+        >
+          <UiRadioCardGroup
+            :model-value="store.communication.primaryStyle"
+            :options="primaryStyles"
+            @update:model-value="store.communication.primaryStyle = $event as PrimaryStyle"
           />
-          <div class="text-sm text-[var(--ui-text-dimmed)] mt-2">{{ verbosityDescription }}</div>
-        </div>
+        </UiToggleSection>
 
-        <!-- Response Structure -->
-        <div class="mb-6">
-          <UFormField :label="$t('communication.responseStructure')">
-            <USelect
-              :model-value="store.communication.structure"
-              :items="translatedResponseStructures"
-              value-key="value"
-              label-key="label"
-              class="w-full"
-              @update:model-value="store.communication.structure = $event as ResponseStructure"
+        <!-- Style Modifiers -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.communication.modifiers"
+          :title="$t('communication.styleModifiers')"
+        >
+          <UiCheckboxGroup
+            :model-value="store.communication.modifiers"
+            :options="communicationModifiers"
+            @update:model-value="store.communication.modifiers = $event as CommunicationModifier[]"
+          />
+        </UiToggleSection>
+
+        <!-- Response Characteristics -->
+        <UiToggleSection
+          v-model:enabled="store.enabled.communication.responseCharacteristics"
+          :title="$t('communication.responseCharacteristics')"
+        >
+          <!-- Verbosity -->
+          <div class="mb-6">
+            <UiRangeSlider
+              :model-value="store.communication.verbosity"
+              :min="1"
+              :max="10"
+              :label="$t('communication.verbosityLevel')"
+              :left-label="$t('communication.verbosityLeft')"
+              :center-label="$t('communication.verbosityCenter')"
+              :right-label="$t('communication.verbosityRight')"
+              @update:model-value="store.communication.verbosity = $event"
             />
-          </UFormField>
-        </div>
+            <div class="text-sm text-[var(--ui-text-dimmed)] mt-2">{{ verbosityDescription }}</div>
+          </div>
+
+          <!-- Response Structure -->
+          <div class="mb-6">
+            <UFormField :label="$t('communication.responseStructure')">
+              <USelect
+                :model-value="store.communication.structure"
+                :items="translatedResponseStructures"
+                value-key="value"
+                label-key="label"
+                class="w-full"
+                @update:model-value="store.communication.structure = $event as ResponseStructure"
+              />
+            </UFormField>
+          </div>
+        </UiToggleSection>
 
         <!-- Tone Sliders -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <UiRangeSlider
-            v-for="tone in toneSliders"
-            :key="tone.key"
-            :model-value="store.communication.tones[tone.key]"
-            :label="tone.label"
-            :value-color="tone.color"
-            :left-label="tone.left"
-            :right-label="tone.right"
-            @update:model-value="store.communication.tones[tone.key] = $event"
-          />
-        </div>
+        <UiToggleSection
+          v-model:enabled="store.enabled.communication.tones"
+          title="Tones"
+        >
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <UiRangeSlider
+              v-for="tone in toneSliders"
+              :key="tone.key"
+              :model-value="store.communication.tones[tone.key]"
+              :label="tone.label"
+              :value-color="tone.color"
+              :left-label="tone.left"
+              :right-label="tone.right"
+              @update:model-value="store.communication.tones[tone.key] = $event"
+            />
+          </div>
+        </UiToggleSection>
       </div>
     </div>
   </UCard>

@@ -261,6 +261,10 @@
     "noPrimaryStyle": "No primary communication style selected",
     "noExpertiseLevel": "No expertise level selected"
   },
+  "toggle": {
+    "enableCategory": "Enable this category",
+    "disabledCategory": "Disabled"
+  },
   "balanced": "Balanced",
   "options": {
     "primaryStyles": {
