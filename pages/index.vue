@@ -46,7 +46,7 @@ function handleTest() {
 
           <!-- Sidebar -->
           <div class="lg:col-span-1">
-            <div class="sticky top-8 space-y-6">
+            <div class="sticky top-14 space-y-6">
               <SidebarPersonalityRadar />
               <SidebarLivePreview />
               <SidebarQuickPresets />
