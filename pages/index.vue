@@ -30,8 +30,6 @@ function handleTest() {
 
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-7xl mx-auto">
-        <TabNavigation />
-
         <div class="grid lg:grid-cols-3 gap-8">
           <!-- Main Configuration Panel -->
           <div class="lg:col-span-2">
@@ -47,7 +45,7 @@ function handleTest() {
 
           <!-- Sidebar -->
           <div class="lg:col-span-1">
-            <div class="sticky top-14 space-y-6">
+            <div class="sticky top-28 space-y-6">
               <SidebarPersonalityRadar />
               <SidebarLivePreview />
               <SidebarQuickPresets />

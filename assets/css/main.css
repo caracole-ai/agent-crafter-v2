@@ -93,6 +93,46 @@
   border-color: #3b82f6 #3b82f6 #0f172a #3b82f6;
 }
 
+/* Header tab styles */
+.header-tab {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  white-space: nowrap;
+}
+
+.header-tab:hover {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.header-tab.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+.dark .header-tab {
+  color: #94a3b8;
+}
+
+.dark .header-tab:hover {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.08);
+}
+
+.dark .header-tab.active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
 /* Animations */
 .fade-in {
   animation: fadeIn 0.5s ease-in;
