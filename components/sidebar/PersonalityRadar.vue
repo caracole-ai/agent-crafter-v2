@@ -12,12 +12,19 @@ import {
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip)
 
 const store = usePersonalityStore()
+const { t } = useI18n()
 
 const chartData = computed(() => ({
-  labels: ['Extraversion', 'Agreeableness', 'Conscientiousness', 'Emotional Stability', 'Openness'],
+  labels: [
+    t('radar.extraversion'),
+    t('radar.agreeableness'),
+    t('radar.conscientiousness'),
+    t('radar.emotionalStability'),
+    t('radar.openness'),
+  ],
   datasets: [
     {
-      label: 'Personality Profile',
+      label: t('sidebar.personalityProfile'),
       data: store.coreTraitsArray,
       backgroundColor: 'rgba(59, 130, 246, 0.2)',
       borderColor: 'rgba(59, 130, 246, 1)',
@@ -53,7 +60,7 @@ const chartOptions = computed(() => {
 
 <template>
   <UCard class="glass-effect">
-    <h3 class="text-lg font-semibold mb-4">📊 Personality Radar</h3>
+    <h3 class="text-lg font-semibold mb-4">📊 {{ $t('sidebar.personalityRadar') }}</h3>
     <div class="max-w-[300px] mx-auto">
       <Radar :data="chartData" :options="chartOptions" />
     </div>

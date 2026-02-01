@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 const props = defineProps<{
   modelValue: string[]
   options: readonly { value: string; emoji?: string; label: string }[]
@@ -12,7 +14,7 @@ const emit = defineEmits<{
 const items = computed(() =>
   props.options.map(opt => ({
     value: opt.value,
-    label: opt.emoji ? `${opt.emoji} ${opt.label}` : opt.label,
+    label: opt.emoji ? `${opt.emoji} ${t(opt.label)}` : t(opt.label),
   })),
 )
 </script>

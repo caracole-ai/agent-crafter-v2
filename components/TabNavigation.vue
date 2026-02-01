@@ -2,16 +2,17 @@
 import type { TabName } from '~/types/personality'
 
 const store = usePersonalityStore()
+const { t } = useI18n()
 
-const tabs: { key: TabName; emoji: string; label: string }[] = [
-  { key: 'core', emoji: '🧠', label: 'Core Personality' },
-  { key: 'communication', emoji: '💬', label: 'Communication' },
-  { key: 'expertise', emoji: '💼', label: 'Expertise' },
-  { key: 'behavioral', emoji: '🎯', label: 'Behavioral' },
-  { key: 'philosophy', emoji: '🏛️', label: 'Philosophie' },
-  { key: 'theater', emoji: '🎭', label: 'Théâtre' },
-  { key: 'literary', emoji: '✒️', label: 'Style Littéraire' },
-  { key: 'advanced', emoji: '⚙️', label: 'Advanced' },
+const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
+  { key: 'core', emoji: '🧠', labelKey: 'tabs.core' },
+  { key: 'communication', emoji: '💬', labelKey: 'tabs.communication' },
+  { key: 'expertise', emoji: '💼', labelKey: 'tabs.expertise' },
+  { key: 'behavioral', emoji: '🎯', labelKey: 'tabs.behavioral' },
+  { key: 'philosophy', emoji: '🏛️', labelKey: 'tabs.philosophy' },
+  { key: 'theater', emoji: '🎭', labelKey: 'tabs.theater' },
+  { key: 'literary', emoji: '✒️', labelKey: 'tabs.literary' },
+  { key: 'advanced', emoji: '⚙️', labelKey: 'tabs.advanced' },
 ]
 </script>
 
@@ -24,7 +25,7 @@ const tabs: { key: TabName; emoji: string; label: string }[] = [
       :class="{ active: store.activeTab === tab.key }"
       @click="store.switchTab(tab.key)"
     >
-      {{ tab.emoji }} {{ tab.label }}
+      {{ tab.emoji }} {{ t(tab.labelKey) }}
     </button>
   </div>
 </template>

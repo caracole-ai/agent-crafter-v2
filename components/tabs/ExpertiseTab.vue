@@ -16,22 +16,23 @@ import type {
 } from '~/types/personality'
 
 const store = usePersonalityStore()
+const { t } = useI18n()
 
-const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: string; left: string; right: string }[] = [
-  { key: 'speedThoroughness', label: 'Speed vs Thoroughness', color: 'text-blue-600', left: 'Très rapide', right: 'Très approfondi' },
-  { key: 'riskCaution', label: 'Risk Taking vs Cautious', color: 'text-green-600', left: 'Très prudent', right: 'Prend des risques' },
-  { key: 'independentCollaborative', label: 'Independent vs Collaborative', color: 'text-purple-600', left: 'Très indépendant', right: 'Très collaboratif' },
-]
+const problemSolvingSliders = computed(() => [
+  { key: 'speedThoroughness' as ProblemSolvingKey, label: t('expertise.speedThoroughness'), color: 'text-blue-600', left: t('expertise.speedLeft'), right: t('expertise.speedRight') },
+  { key: 'riskCaution' as ProblemSolvingKey, label: t('expertise.riskCaution'), color: 'text-green-600', left: t('expertise.riskLeft'), right: t('expertise.riskRight') },
+  { key: 'independentCollaborative' as ProblemSolvingKey, label: t('expertise.independentCollaborative'), color: 'text-purple-600', left: t('expertise.independentLeft'), right: t('expertise.independentRight') },
+])
 </script>
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">💼 Professional Expertise</h2>
+    <h2 class="text-2xl font-bold mb-6">💼 {{ $t('expertise.title') }}</h2>
 
     <div class="space-y-8">
       <!-- Knowledge Level -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Knowledge Level</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.knowledgeLevel') }}</h3>
         <UiRadioCardGroup
           :model-value="store.expertise.level"
           :options="expertiseLevels"
@@ -43,7 +44,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Role Archetype -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Role Archetype</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.roleArchetype') }}</h3>
         <UiRadioCardGroup
           :model-value="store.expertise.roleArchetype"
           :options="roleArchetypes"
@@ -55,7 +56,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Industry Focus -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Industry Focus (Multi-select)</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.industryFocus') }}</h3>
         <UiCheckboxGroup
           :model-value="store.expertise.industries"
           :options="industries"
@@ -66,10 +67,10 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Cognitive Approach -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Cognitive Approach</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.cognitiveApproach') }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 class="font-medium mb-3">Thinking Styles (Multi-select)</h4>
+            <h4 class="font-medium mb-3">{{ $t('expertise.thinkingStyles') }}</h4>
             <UiCheckboxGroup
               :model-value="store.expertise.thinkingStyles"
               :options="thinkingStyles"
@@ -79,7 +80,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
           </div>
 
           <div>
-            <h4 class="font-medium mb-3">Problem Solving Approach</h4>
+            <h4 class="font-medium mb-3">{{ $t('expertise.problemSolving') }}</h4>
             <div class="space-y-4">
               <UiRangeSlider
                 v-for="slider in problemSolvingSliders"
@@ -99,7 +100,7 @@ const problemSolvingSliders: { key: ProblemSolvingKey; label: string; color: str
 
       <!-- Learning Approach -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Learning & Teaching Approach</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('expertise.learningTeaching') }}</h3>
         <UiCheckboxGroup
           :model-value="store.expertise.learningApproach"
           :options="learningApproaches"

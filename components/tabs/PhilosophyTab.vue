@@ -7,11 +7,11 @@ const store = usePersonalityStore()
 
 <template>
   <div class="space-y-6">
-    <!-- Posture Épistémologique -->
+    <!-- Epistemological Stance -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🔬 Posture Épistémologique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Comment l'agent aborde la connaissance et construit son savoir</p>
+        <h3 class="text-lg font-semibold">🔬 {{ $t('philosophy.epistemologyTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('philosophy.epistemologyDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.philosophy.epistemology"
@@ -22,11 +22,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Cadre Éthique -->
+    <!-- Ethical Framework -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">⚖️ Cadre Éthique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Ce qui guide les décisions morales et les recommandations de l'agent</p>
+        <h3 class="text-lg font-semibold">⚖️ {{ $t('philosophy.ethicalTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('philosophy.ethicalDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.philosophy.ethicalFramework"
@@ -37,11 +37,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Méthode Dialectique -->
+    <!-- Dialectical Method -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🏺 Méthode Dialectique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Comment l'agent navigue les contradictions et fait émerger la vérité</p>
+        <h3 class="text-lg font-semibold">🏺 {{ $t('philosophy.dialecticalTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('philosophy.dialecticalDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.philosophy.dialecticalMethod"
@@ -52,61 +52,61 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Tempérament Philosophique -->
+    <!-- Philosophical Temperament -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🧭 Tempérament Philosophique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Les polarités fondamentales qui structurent la pensée de l'agent</p>
+        <h3 class="text-lg font-semibold">🧭 {{ $t('philosophy.temperamentTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('philosophy.temperamentDesc') }}</p>
       </template>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <UiRangeSlider
           v-model="store.philosophy.temperament.certaintyDoubt"
-          label="Certitude ↔ Doute"
+          :label="$t('philosophy.certaintyDoubt')"
           :min="0"
           :max="100"
-          left-label="Certitude"
-          right-label="Doute"
-          center-label="Équilibré"
+          :left-label="$t('philosophy.certainty')"
+          :right-label="$t('philosophy.doubt')"
+          :center-label="$t('balanced')"
           value-color="text-indigo-400"
         />
         <UiRangeSlider
           v-model="store.philosophy.temperament.universalParticular"
-          label="Universel ↔ Particulier"
+          :label="$t('philosophy.universalParticular')"
           :min="0"
           :max="100"
-          left-label="Principes abstraits"
-          right-label="Cas concrets"
-          center-label="Équilibré"
+          :left-label="$t('philosophy.abstractPrinciples')"
+          :right-label="$t('philosophy.concreteCases')"
+          :center-label="$t('balanced')"
           value-color="text-amber-400"
         />
         <UiRangeSlider
           v-model="store.philosophy.temperament.contemplativeActive"
-          label="Contemplatif ↔ Actif"
+          :label="$t('philosophy.contemplativeActive')"
           :min="0"
           :max="100"
-          left-label="Réflexion"
-          right-label="Action"
-          center-label="Équilibré"
+          :left-label="$t('philosophy.reflection')"
+          :right-label="$t('philosophy.action')"
+          :center-label="$t('balanced')"
           value-color="text-emerald-400"
         />
         <UiRangeSlider
           v-model="store.philosophy.temperament.individualCollective"
-          label="Individuel ↔ Collectif"
+          :label="$t('philosophy.individualCollective')"
           :min="0"
           :max="100"
-          left-label="Autonomie"
-          right-label="Communauté"
-          center-label="Équilibré"
+          :left-label="$t('philosophy.autonomy')"
+          :right-label="$t('philosophy.community')"
+          :center-label="$t('balanced')"
           value-color="text-rose-400"
         />
       </div>
     </UCard>
 
-    <!-- Vertus Cardinales -->
+    <!-- Cardinal Virtues -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🦉 Vertus Cardinales</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Les vertus que l'agent cherche à incarner dans ses interactions</p>
+        <h3 class="text-lg font-semibold">🦉 {{ $t('philosophy.virtuesTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('philosophy.virtuesDesc') }}</p>
       </template>
       <UiCheckboxGroup
         :model-value="store.philosophy.cardinalVirtues"

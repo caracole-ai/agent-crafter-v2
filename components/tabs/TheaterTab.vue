@@ -7,11 +7,11 @@ const store = usePersonalityStore()
 
 <template>
   <div class="space-y-6">
-    <!-- Archétype Dramatique -->
+    <!-- Dramatic Archetype -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎭 Archétype Dramatique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Le pattern profond du personnage, inspiré de Jung et Campbell</p>
+        <h3 class="text-lg font-semibold">🎭 {{ $t('theater.archetypeTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.archetypeDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.theater.dramaticArchetype"
@@ -22,11 +22,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Fonction Dramatique -->
+    <!-- Dramatic Function -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎬 Fonction Dramatique</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Quel rôle joue l'agent dans « l'histoire » de l'utilisateur</p>
+        <h3 class="text-lg font-semibold">🎬 {{ $t('theater.functionTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.functionDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.theater.dramaticFunction"
@@ -37,11 +37,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Registre Théâtral -->
+    <!-- Theatrical Register -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎪 Registre Théâtral</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Le « genre » de la performance, le ton dramatique dominant</p>
+        <h3 class="text-lg font-semibold">🎪 {{ $t('theater.registerTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.registerDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.theater.theatricalRegister"
@@ -52,61 +52,61 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Dynamiques de Jeu -->
+    <!-- Play Dynamics -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎲 Dynamiques de Jeu</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Les tensions dramatiques qui animent le personnage sur scène</p>
+        <h3 class="text-lg font-semibold">🎲 {{ $t('theater.dynamicsTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.dynamicsDesc') }}</p>
       </template>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <UiRangeSlider
           v-model="store.theater.playDynamics.protagonistSupport"
-          label="Protagoniste ↔ Support"
+          :label="$t('theater.protagonistSupport')"
           :min="0"
           :max="100"
-          left-label="Centre de la scène"
-          right-label="En soutien"
-          center-label="Équilibré"
+          :left-label="$t('theater.centerStage')"
+          :right-label="$t('theater.inSupport')"
+          :center-label="$t('balanced')"
           value-color="text-rose-400"
         />
         <UiRangeSlider
           v-model="store.theater.playDynamics.textSubtext"
-          label="Texte ↔ Sous-texte"
+          :label="$t('theater.textSubtext')"
           :min="0"
           :max="100"
-          left-label="Explicite"
-          right-label="Suggéré"
-          center-label="Équilibré"
+          :left-label="$t('theater.explicit')"
+          :right-label="$t('theater.suggested')"
+          :center-label="$t('balanced')"
           value-color="text-orange-400"
         />
         <UiRangeSlider
           v-model="store.theater.playDynamics.maskAuthenticity"
-          label="Masque ↔ Authenticité"
+          :label="$t('theater.maskAuthenticity')"
           :min="0"
           :max="100"
-          left-label="Persona formelle"
-          right-label="Expression genuine"
-          center-label="Équilibré"
+          :left-label="$t('theater.formalPersona')"
+          :right-label="$t('theater.genuineExpression')"
+          :center-label="$t('balanced')"
           value-color="text-fuchsia-400"
         />
         <UiRangeSlider
           v-model="store.theater.playDynamics.monologueDialogue"
-          label="Monologue ↔ Dialogue"
+          :label="$t('theater.monologueDialogue')"
           :min="0"
           :max="100"
-          left-label="Expositif"
-          right-label="Interactif"
-          center-label="Équilibré"
+          :left-label="$t('theater.expository')"
+          :right-label="$t('theater.interactive')"
+          :center-label="$t('balanced')"
           value-color="text-violet-400"
         />
       </div>
     </UCard>
 
-    <!-- Outils du Comédien -->
+    <!-- Acting Tools -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎬 Outils du Comédien</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Techniques inspirées de Stanislavski pour habiter le rôle</p>
+        <h3 class="text-lg font-semibold">🎬 {{ $t('theater.actingToolsTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.actingToolsDesc') }}</p>
       </template>
       <UiCheckboxGroup
         :model-value="store.theater.actingTools"
@@ -116,20 +116,20 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Distance Brechtienne -->
+    <!-- Brechtian Distance -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🪟 Distance Brechtienne</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">L'agent reste-t-il dans le « rôle » ou prend-il du recul méta sur ses propres réponses ?</p>
+        <h3 class="text-lg font-semibold">🪟 {{ $t('theater.brechtianTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('theater.brechtianDesc') }}</p>
       </template>
       <UiRangeSlider
         v-model="store.theater.brechtianDistance"
-        label="Immersion ↔ Distance critique"
+        :label="$t('theater.immersionDistance')"
         :min="0"
         :max="100"
-        left-label="Immersion totale"
-        right-label="Distance critique"
-        center-label="Semi-conscient"
+        :left-label="$t('theater.totalImmersion')"
+        :right-label="$t('theater.criticalDistance')"
+        :center-label="$t('theater.semiConscious')"
         value-color="text-cyan-400"
       />
     </UCard>

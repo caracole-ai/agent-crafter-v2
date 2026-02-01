@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const store = usePersonalityStore()
 const { exportFullConfig, importConfig } = useExport()
+const { t } = useI18n()
 
 const mainImportInput = ref<HTMLInputElement>()
 
@@ -19,7 +20,7 @@ async function handleImport(e: Event) {
 }
 
 function handleTest() {
-  alert('🧪 Advanced Testing - Coming Soon!')
+  alert(`🧪 ${t('alerts.advancedTestComingSoon')}`)
 }
 </script>
 
@@ -57,17 +58,17 @@ function handleTest() {
         <!-- Action Buttons -->
         <div class="mt-8 flex justify-center gap-4">
           <UButton color="gray" size="lg" @click="handleReset">
-            🔄 Reset All
+            🔄 {{ $t('actions.resetAll') }}
           </UButton>
           <input ref="mainImportInput" type="file" accept=".json" class="hidden" @change="handleImport" />
           <UButton color="blue" size="lg" @click="mainImportInput?.click()">
-            📥 Import Agent
+            📥 {{ $t('actions.importAgent') }}
           </UButton>
           <UButton color="green" size="lg" @click="exportFullConfig">
-            💾 Export Agent
+            💾 {{ $t('actions.exportAgent') }}
           </UButton>
           <UButton color="purple" size="lg" @click="handleTest">
-            🧪 Advanced Test
+            🧪 {{ $t('actions.advancedTest') }}
           </UButton>
         </div>
       </div>

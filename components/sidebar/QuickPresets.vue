@@ -4,7 +4,7 @@ const { presets, loadPreset } = usePresets()
 
 <template>
   <UCard class="glass-effect">
-    <h3 class="text-lg font-semibold mb-4">⚡ Quick Presets</h3>
+    <h3 class="text-lg font-semibold mb-4">⚡ {{ $t('sidebar.quickPresets') }}</h3>
     <div class="space-y-2">
       <button
         v-for="preset in presets"

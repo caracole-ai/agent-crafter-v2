@@ -22,8 +22,22 @@ import type {
 
 const store = usePersonalityStore()
 const { exportFullConfig, exportPromptOnly, exportSummary, importConfig } = useExport()
+const { t } = useI18n()
 
 const fileInput = ref<HTMLInputElement>()
+
+const translatedMaxResponseLengths = computed(() =>
+  maxResponseLengths.map(s => ({ ...s, label: t(s.label) })),
+)
+const translatedSecurityLevels = computed(() =>
+  securityLevels.map(s => ({ ...s, label: t(s.label) })),
+)
+const translatedPreferredModels = computed(() =>
+  preferredModels.map(s => ({ ...s, label: t(s.label) })),
+)
+const translatedResponseFormats = computed(() =>
+  responseFormats.map(s => ({ ...s, label: t(s.label) })),
+)
 
 async function handleImport(e: Event) {
   const file = (e.target as HTMLInputElement).files?.[0]
@@ -34,28 +48,28 @@ async function handleImport(e: Event) {
 }
 
 function handleCommunityPreset() {
-  alert('🌟 Community Presets - Coming Soon!\nThis feature will allow you to browse and import agent configurations shared by the community.')
+  alert(`🌟 ${t('alerts.communityPresetsComingSoon')}`)
 }
 
 function handleValidate() {
   const { validate } = useValidation()
   const issues = validate()
   if (issues.length === 0) {
-    alert('✅ Configuration Valid!\nYour agent configuration looks good and ready to use.')
+    alert(`✅ ${t('alerts.configValid')}`)
   } else {
-    alert('Configuration Issues Found:\n\n' + issues.map(i => `⚠️ ${i}`).join('\n'))
+    alert(t('alerts.configIssuesFound') + '\n\n' + issues.map(i => `⚠️ ${i}`).join('\n'))
   }
 }
 </script>
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">⚙️ Advanced Configuration</h2>
+    <h2 class="text-2xl font-bold mb-6">⚙️ {{ $t('advanced.title') }}</h2>
 
     <div class="space-y-8">
       <!-- Technical Capabilities -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Technical Capabilities</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('advanced.technicalCapabilities') }}</h3>
         <UiCheckboxGroup
           :model-value="store.advanced.technicalCapabilities"
           :options="technicalCapabilities"
@@ -66,12 +80,12 @@ function handleValidate() {
 
       <!-- Response Limits & Security -->
       <div>
-        <h3 class="text-lg font-semibold mb-6">Response Limits & Security</h3>
+        <h3 class="text-lg font-semibold mb-6">{{ $t('advanced.responseLimits') }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <UFormField label="Max Response Length">
+          <UFormField :label="$t('advanced.maxResponseLength')">
             <USelect
               :model-value="store.advanced.maxResponseLength"
-              :items="maxResponseLengths"
+              :items="translatedMaxResponseLengths"
               value-key="value"
               label-key="label"
               class="w-full"
@@ -79,10 +93,10 @@ function handleValidate() {
             />
           </UFormField>
 
-          <UFormField label="Security Level">
+          <UFormField :label="$t('advanced.securityLevel')">
             <USelect
               :model-value="store.advanced.securityLevel"
-              :items="securityLevels"
+              :items="translatedSecurityLevels"
               value-key="value"
               label-key="label"
               class="w-full"
@@ -92,7 +106,7 @@ function handleValidate() {
         </div>
 
         <div class="mt-4">
-          <h4 class="font-medium mb-3">Content Filters</h4>
+          <h4 class="font-medium mb-3">{{ $t('advanced.contentFilters') }}</h4>
           <UiCheckboxGroup
             :model-value="store.advanced.contentFilters"
             :options="contentFilters"
@@ -104,34 +118,34 @@ function handleValidate() {
 
       <!-- Custom Instructions -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Custom Instructions</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('advanced.customInstructions') }}</h3>
         <div class="space-y-4">
-          <UFormField label="System Instructions" hint="These instructions will be processed at the system level">
+          <UFormField :label="$t('advanced.systemInstructions')" :hint="$t('advanced.systemInstructionsHint')">
             <UTextarea
               v-model="store.advanced.systemInstructions"
               :rows="4"
               class="w-full"
-              placeholder="Define specific behaviors, rules, or constraints for your agent..."
+              :placeholder="$t('advanced.systemInstructionsPlaceholder')"
               :resize="false"
             />
           </UFormField>
 
-          <UFormField label="User Context Instructions" hint="These will be visible to users interacting with the agent">
+          <UFormField :label="$t('advanced.userInstructions')" :hint="$t('advanced.userInstructionsHint')">
             <UTextarea
               v-model="store.advanced.userInstructions"
               :rows="3"
               class="w-full"
-              placeholder="Instructions that will be shared with users about this agent..."
+              :placeholder="$t('advanced.userInstructionsPlaceholder')"
               :resize="false"
             />
           </UFormField>
 
-          <UFormField label="Fallback Responses" hint="Comma-separated responses for uncertainty situations">
+          <UFormField :label="$t('advanced.fallbackResponses')" :hint="$t('advanced.fallbackResponsesHint')">
             <UTextarea
               v-model="store.advanced.fallbackResponses"
               :rows="2"
               class="w-full"
-              placeholder="Custom responses when the agent cannot fulfill a request..."
+              :placeholder="$t('advanced.fallbackResponsesPlaceholder')"
               :resize="false"
             />
           </UFormField>
@@ -140,10 +154,10 @@ function handleValidate() {
 
       <!-- Conditional Behaviors -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Conditional Behaviors</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('advanced.conditionalBehaviors') }}</h3>
         <div class="space-y-4">
           <div class="p-4 bg-[var(--ui-bg-elevated)] rounded-lg">
-            <h4 class="font-medium mb-3">Context-Based Adaptations</h4>
+            <h4 class="font-medium mb-3">{{ $t('advanced.contextAdaptations') }}</h4>
             <UiCheckboxGroup
               :model-value="store.advanced.conditionalBehaviors"
               :options="conditionalBehaviors"
@@ -153,7 +167,7 @@ function handleValidate() {
           </div>
 
           <div class="p-4 bg-[var(--ui-bg-elevated)] rounded-lg">
-            <h4 class="font-medium mb-3">Time-Based Behaviors</h4>
+            <h4 class="font-medium mb-3">{{ $t('advanced.timeBehaviors') }}</h4>
             <UiCheckboxGroup
               :model-value="store.advanced.timeBehaviors"
               :options="timeBehaviors"
@@ -166,12 +180,12 @@ function handleValidate() {
 
       <!-- Integration Settings -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Integration Settings</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('advanced.integrationSettings') }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <UFormField label="Preferred Model">
+          <UFormField :label="$t('advanced.preferredModel')">
             <USelect
               :model-value="store.advanced.preferredModel"
-              :items="preferredModels"
+              :items="translatedPreferredModels"
               value-key="value"
               label-key="label"
               class="w-full"
@@ -179,10 +193,10 @@ function handleValidate() {
             />
           </UFormField>
 
-          <UFormField label="Response Format">
+          <UFormField :label="$t('advanced.responseFormat')">
             <USelect
               :model-value="store.advanced.responseFormat"
-              :items="responseFormats"
+              :items="translatedResponseFormats"
               value-key="value"
               label-key="label"
               class="w-full"
@@ -195,10 +209,10 @@ function handleValidate() {
             :min="0"
             :max="1"
             :step="0.1"
-            label="Temperature"
+            :label="$t('advanced.temperature')"
             value-color="text-purple-600"
-            left-label="Consistent"
-            right-label="Creative"
+            :left-label="$t('advanced.temperatureLeft')"
+            :right-label="$t('advanced.temperatureRight')"
             :display-value="store.advanced.temperature.toFixed(1)"
             @update:model-value="store.advanced.temperature = $event"
           />
@@ -208,10 +222,10 @@ function handleValidate() {
             :min="5"
             :max="120"
             :step="5"
-            label="Response Timeout (s)"
+            :label="$t('advanced.responseTimeout')"
             value-color="text-orange-600"
-            left-label="Fast"
-            right-label="Patient"
+            :left-label="$t('advanced.timeoutLeft')"
+            :right-label="$t('advanced.timeoutRight')"
             @update:model-value="store.advanced.timeout = $event"
           />
         </div>
@@ -219,35 +233,35 @@ function handleValidate() {
 
       <!-- Configuration Management -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Configuration Management</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('advanced.configManagement') }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <UCard variant="soft" class="rounded-lg">
-            <h4 class="font-medium mb-2">💾 Export Options</h4>
+            <h4 class="font-medium mb-2">💾 {{ $t('advanced.exportOptions') }}</h4>
             <div class="space-y-2">
               <UButton block color="green" @click="exportFullConfig">
-                Export Complete Configuration
+                {{ $t('advanced.exportComplete') }}
               </UButton>
               <UButton block color="green" variant="soft" @click="exportPromptOnly">
-                Export as Prompt Template
+                {{ $t('advanced.exportPrompt') }}
               </UButton>
               <UButton block color="green" variant="outline" @click="exportSummary">
-                Export Summary Report
+                {{ $t('advanced.exportSummary') }}
               </UButton>
             </div>
           </UCard>
 
           <UCard variant="soft" class="rounded-lg">
-            <h4 class="font-medium mb-2">📥 Import Options</h4>
+            <h4 class="font-medium mb-2">📥 {{ $t('advanced.importOptions') }}</h4>
             <div class="space-y-2">
               <input ref="fileInput" type="file" accept=".json" class="hidden" @change="handleImport" />
               <UButton block color="blue" @click="fileInput?.click()">
-                Import Configuration
+                {{ $t('advanced.importConfig') }}
               </UButton>
               <UButton block color="blue" variant="soft" @click="handleCommunityPreset">
-                Load Community Preset
+                {{ $t('advanced.loadCommunityPreset') }}
               </UButton>
               <UButton block color="blue" variant="outline" @click="handleValidate">
-                Validate Configuration
+                {{ $t('advanced.validateConfig') }}
               </UButton>
             </div>
           </UCard>

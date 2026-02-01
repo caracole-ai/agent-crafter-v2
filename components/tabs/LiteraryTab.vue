@@ -7,11 +7,11 @@ const store = usePersonalityStore()
 
 <template>
   <div class="space-y-6">
-    <!-- Voix Narrative -->
+    <!-- Narrative Voice -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🗣️ Voix Narrative</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Le point de vue et la posture narrative de l'agent</p>
+        <h3 class="text-lg font-semibold">🗣️ {{ $t('literary.narrativeTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.narrativeDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.literary.narrativeVoice"
@@ -22,11 +22,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Mouvement Littéraire -->
+    <!-- Literary Movement -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">📚 Mouvement Littéraire</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">L'esthétique dominante qui colore l'écriture de l'agent</p>
+        <h3 class="text-lg font-semibold">📚 {{ $t('literary.movementTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.movementDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.literary.literaryMovement"
@@ -37,11 +37,11 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Figures de Style -->
+    <!-- Rhetorical Devices -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">✨ Figures de Style Préférées</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Les outils rhétoriques que l'agent privilégie dans son expression</p>
+        <h3 class="text-lg font-semibold">✨ {{ $t('literary.figuresTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.figuresDesc') }}</p>
       </template>
       <UiCheckboxGroup
         :model-value="store.literary.rhetoricalDevices"
@@ -51,71 +51,71 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Esthétique de la Prose -->
+    <!-- Prose Aesthetics -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🖋️ Esthétique de la Prose</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">Les polarités stylistiques qui définissent la texture de l'écriture</p>
+        <h3 class="text-lg font-semibold">🖋️ {{ $t('literary.proseTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.proseDesc') }}</p>
       </template>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <UiRangeSlider
           v-model="store.literary.proseAesthetics.ornateAustere"
-          label="Orné ↔ Austère"
+          :label="$t('literary.ornateAustere')"
           :min="0"
           :max="100"
-          left-label="Baroque"
-          right-label="Dépouillé"
-          center-label="Équilibré"
+          :left-label="$t('literary.baroque')"
+          :right-label="$t('literary.stripped')"
+          :center-label="$t('balanced')"
           value-color="text-teal-400"
         />
         <UiRangeSlider
           v-model="store.literary.proseAesthetics.abstractConcrete"
-          label="Abstrait ↔ Concret"
+          :label="$t('literary.abstractConcrete')"
           :min="0"
           :max="100"
-          left-label="Concepts"
-          right-label="Exemples tangibles"
-          center-label="Équilibré"
+          :left-label="$t('literary.concepts')"
+          :right-label="$t('literary.tangibleExamples')"
+          :center-label="$t('balanced')"
           value-color="text-sky-400"
         />
         <UiRangeSlider
           v-model="store.literary.proseAesthetics.lyricalAnalytical"
-          label="Lyrique ↔ Analytique"
+          :label="$t('literary.lyricalAnalytical')"
           :min="0"
           :max="100"
-          left-label="Poétique"
-          right-label="Méthodique"
-          center-label="Équilibré"
+          :left-label="$t('literary.poetic')"
+          :right-label="$t('literary.methodical')"
+          :center-label="$t('balanced')"
           value-color="text-violet-400"
         />
         <UiRangeSlider
           v-model="store.literary.proseAesthetics.linearDigressive"
-          label="Linéaire ↔ Digressif"
+          :label="$t('literary.linearDigressive')"
           :min="0"
           :max="100"
-          left-label="Droit au but"
-          right-label="Exploration"
-          center-label="Équilibré"
+          :left-label="$t('literary.straightToPoint')"
+          :right-label="$t('literary.exploration')"
+          :center-label="$t('balanced')"
           value-color="text-amber-400"
         />
         <UiRangeSlider
           v-model="store.literary.proseAesthetics.didacticEvocative"
-          label="Didactique ↔ Évocateur"
+          :label="$t('literary.didacticEvocative')"
           :min="0"
           :max="100"
-          left-label="Enseigner"
-          right-label="Faire ressentir"
-          center-label="Équilibré"
+          :left-label="$t('literary.teach')"
+          :right-label="$t('literary.evoke')"
+          :center-label="$t('balanced')"
           value-color="text-rose-400"
         />
       </div>
     </UCard>
 
-    <!-- Rythme Textuel -->
+    <!-- Textual Rhythm -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">🎵 Rythme Textuel</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">La cadence et le tempo de la prose de l'agent</p>
+        <h3 class="text-lg font-semibold">🎵 {{ $t('literary.rhythmTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.rhythmDesc') }}</p>
       </template>
       <UiRadioCardGroup
         :model-value="store.literary.textualRhythm"
@@ -126,20 +126,20 @@ const store = usePersonalityStore()
       />
     </UCard>
 
-    <!-- Intertextualité -->
+    <!-- Intertextuality -->
     <UCard class="glass-effect">
       <template #header>
-        <h3 class="text-lg font-semibold">📖 Intertextualité</h3>
-        <p class="text-sm text-[var(--ui-text-muted)]">L'agent fait-il référence à d'autres œuvres, idées, penseurs ?</p>
+        <h3 class="text-lg font-semibold">📖 {{ $t('literary.intertextualityTitle') }}</h3>
+        <p class="text-sm text-[var(--ui-text-muted)]">{{ $t('literary.intertextualityDesc') }}</p>
       </template>
       <UiRangeSlider
         v-model="store.literary.intertextuality"
-        label="Niveau d'intertextualité"
+        :label="$t('literary.intertextualityLevel')"
         :min="0"
         :max="100"
-        left-label="Autonome"
-        right-label="Richement référencé"
-        center-label="Modéré"
+        :left-label="$t('literary.autonomous')"
+        :right-label="$t('literary.richlyReferenced')"
+        :center-label="$t('literary.moderate')"
         value-color="text-indigo-400"
       />
     </UCard>

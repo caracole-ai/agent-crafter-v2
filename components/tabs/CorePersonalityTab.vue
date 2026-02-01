@@ -2,64 +2,65 @@
 import type { CoreTraitKey } from '~/types/personality'
 
 const store = usePersonalityStore()
+const { t } = useI18n()
 
-const traits = [
+const traits = computed(() => [
   {
     key: 'extraversion' as CoreTraitKey,
-    label: 'Extraversion',
+    label: t('core.extraversion'),
     color: 'text-blue-600',
     facets: [
-      { key: 'extraversion-warmth', label: 'Warmth' },
-      { key: 'extraversion-assertiveness', label: 'Assertiveness' },
-      { key: 'extraversion-activity', label: 'Activity' },
-      { key: 'extraversion-excitement', label: 'Excitement Seeking' },
+      { key: 'extraversion-warmth', label: t('core.warmth') },
+      { key: 'extraversion-assertiveness', label: t('core.assertiveness') },
+      { key: 'extraversion-activity', label: t('core.activity') },
+      { key: 'extraversion-excitement', label: t('core.excitementSeeking') },
     ],
   },
   {
     key: 'agreeableness' as CoreTraitKey,
-    label: 'Agreeableness',
+    label: t('core.agreeableness'),
     color: 'text-green-600',
     facets: [
-      { key: 'agreeableness-trust', label: 'Trust' },
-      { key: 'agreeableness-cooperation', label: 'Cooperation' },
-      { key: 'agreeableness-empathy', label: 'Empathy' },
-      { key: 'agreeableness-modesty', label: 'Modesty' },
+      { key: 'agreeableness-trust', label: t('core.trust') },
+      { key: 'agreeableness-cooperation', label: t('core.cooperation') },
+      { key: 'agreeableness-empathy', label: t('core.empathy') },
+      { key: 'agreeableness-modesty', label: t('core.modesty') },
     ],
   },
   {
     key: 'conscientiousness' as CoreTraitKey,
-    label: 'Conscientiousness',
+    label: t('core.conscientiousness'),
     color: 'text-purple-600',
     facets: [
-      { key: 'conscientiousness-organization', label: 'Organization' },
-      { key: 'conscientiousness-discipline', label: 'Discipline' },
-      { key: 'conscientiousness-achievement', label: 'Achievement' },
-      { key: 'conscientiousness-dutifulness', label: 'Dutifulness' },
+      { key: 'conscientiousness-organization', label: t('core.organization') },
+      { key: 'conscientiousness-discipline', label: t('core.discipline') },
+      { key: 'conscientiousness-achievement', label: t('core.achievement') },
+      { key: 'conscientiousness-dutifulness', label: t('core.dutifulness') },
     ],
   },
   {
     key: 'emotionalStability' as CoreTraitKey,
-    label: 'Emotional Stability',
+    label: t('core.emotionalStability'),
     color: 'text-red-600',
     facets: [
-      { key: 'emotional-calm', label: 'Calm' },
-      { key: 'emotional-confidence', label: 'Confidence' },
-      { key: 'emotional-resilience', label: 'Resilience' },
-      { key: 'emotional-stress', label: 'Stress Management' },
+      { key: 'emotional-calm', label: t('core.calm') },
+      { key: 'emotional-confidence', label: t('core.confidence') },
+      { key: 'emotional-resilience', label: t('core.resilience') },
+      { key: 'emotional-stress', label: t('core.stressManagement') },
     ],
   },
   {
     key: 'openness' as CoreTraitKey,
-    label: 'Openness to Experience',
+    label: t('core.openness'),
     color: 'text-orange-600',
     facets: [
-      { key: 'openness-creativity', label: 'Creativity' },
-      { key: 'openness-curiosity', label: 'Curiosity' },
-      { key: 'openness-imagination', label: 'Imagination' },
-      { key: 'openness-intellectual', label: 'Intellectual' },
+      { key: 'openness-creativity', label: t('core.creativity') },
+      { key: 'openness-curiosity', label: t('core.curiosity') },
+      { key: 'openness-imagination', label: t('core.imagination') },
+      { key: 'openness-intellectual', label: t('core.intellectual') },
     ],
   },
-]
+])
 
 function onTraitUpdate(key: CoreTraitKey, val: number | number[]) {
   store.setCoreTrait(key, Array.isArray(val) ? val[0] : val)
@@ -68,7 +69,7 @@ function onTraitUpdate(key: CoreTraitKey, val: number | number[]) {
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">🧠 Core Personality (Big 5)</h2>
+    <h2 class="text-2xl font-bold mb-6">🧠 {{ $t('core.title') }}</h2>
 
     <div class="space-y-8">
       <div v-for="trait in traits" :key="trait.key" class="personality-trait">

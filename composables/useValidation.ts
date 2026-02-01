@@ -2,25 +2,26 @@ import { usePersonalityStore } from '~/stores/personality'
 
 export function useValidation() {
   const store = usePersonalityStore()
+  const { t } = useI18n()
 
   function validate(): string[] {
     const issues: string[] = []
 
     const coreSum = Object.values(store.core).reduce((a, b) => a + b, 0)
     if (coreSum === 250) {
-      issues.push('Core personality traits are all at default values')
+      issues.push(t('validation.defaultValues'))
     }
 
     if (store.budgetUsed > store.budgetTotal) {
-      issues.push('Personality budget exceeded')
+      issues.push(t('validation.budgetExceeded'))
     }
 
     if (!store.communication.primaryStyle) {
-      issues.push('No primary communication style selected')
+      issues.push(t('validation.noPrimaryStyle'))
     }
 
     if (!store.expertise.level) {
-      issues.push('No expertise level selected')
+      issues.push(t('validation.noExpertiseLevel'))
     }
 
     return issues

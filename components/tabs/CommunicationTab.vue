@@ -1,30 +1,35 @@
 <script setup lang="ts">
 import { primaryStyles, communicationModifiers, responseStructures } from '~/data/options'
-import { verbosityDescriptions } from '~/data/descriptions'
+import { verbosityDescriptionKeys } from '~/data/descriptions'
 import type { PrimaryStyle, CommunicationModifier, ResponseStructure, ToneKey } from '~/types/personality'
 
 const store = usePersonalityStore()
+const { t } = useI18n()
 
 const verbosityDescription = computed(
-  () => verbosityDescriptions[store.communication.verbosity] || '',
+  () => t(verbosityDescriptionKeys[store.communication.verbosity] || 'descriptions.verbosity.5'),
 )
 
-const toneSliders: { key: ToneKey; label: string; color: string; left: string; right: string }[] = [
-  { key: 'optimism', label: 'Optimisme vs Réalisme', color: 'text-green-600', left: 'Très réaliste', right: 'Très optimiste' },
-  { key: 'formality', label: 'Formality Level', color: 'text-purple-600', left: 'Très informel', right: 'Très formel' },
-  { key: 'patience', label: 'Patience vs Urgence', color: 'text-blue-600', left: 'Très urgent', right: 'Très patient' },
-  { key: 'confidence', label: 'Confiance vs Humilité', color: 'text-orange-600', left: 'Très humble', right: 'Très confiant' },
-]
+const translatedResponseStructures = computed(() =>
+  responseStructures.map(s => ({ ...s, label: t(s.label) })),
+)
+
+const toneSliders = computed(() => [
+  { key: 'optimism' as ToneKey, label: t('communication.optimism'), color: 'text-green-600', left: t('communication.optimismLeft'), right: t('communication.optimismRight') },
+  { key: 'formality' as ToneKey, label: t('communication.formality'), color: 'text-purple-600', left: t('communication.formalityLeft'), right: t('communication.formalityRight') },
+  { key: 'patience' as ToneKey, label: t('communication.patience'), color: 'text-blue-600', left: t('communication.patienceLeft'), right: t('communication.patienceRight') },
+  { key: 'confidence' as ToneKey, label: t('communication.confidenceHumility'), color: 'text-orange-600', left: t('communication.confidenceLeft'), right: t('communication.confidenceRight') },
+])
 </script>
 
 <template>
   <UCard class="glass-effect">
-    <h2 class="text-2xl font-bold mb-6">💬 Communication Style Matrix</h2>
+    <h2 class="text-2xl font-bold mb-6">💬 {{ $t('communication.title') }}</h2>
 
     <div class="space-y-8">
       <!-- Primary Style -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Primary Style</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('communication.primaryStyle') }}</h3>
         <UiRadioCardGroup
           :model-value="store.communication.primaryStyle"
           :options="primaryStyles"
@@ -34,7 +39,7 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 
       <!-- Style Modifiers -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">Style Modifiers</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('communication.styleModifiers') }}</h3>
         <UiCheckboxGroup
           :model-value="store.communication.modifiers"
           :options="communicationModifiers"
@@ -44,7 +49,7 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 
       <!-- Response Characteristics -->
       <div>
-        <h3 class="text-lg font-semibold mb-6">Response Characteristics</h3>
+        <h3 class="text-lg font-semibold mb-6">{{ $t('communication.responseCharacteristics') }}</h3>
 
         <!-- Verbosity -->
         <div class="mb-6">
@@ -52,10 +57,10 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
             :model-value="store.communication.verbosity"
             :min="1"
             :max="10"
-            label="Verbosity Level"
-            left-label="Ultra concis"
-            center-label="Équilibré"
-            right-label="Exhaustif"
+            :label="$t('communication.verbosityLevel')"
+            :left-label="$t('communication.verbosityLeft')"
+            :center-label="$t('communication.verbosityCenter')"
+            :right-label="$t('communication.verbosityRight')"
             @update:model-value="store.communication.verbosity = $event"
           />
           <div class="text-sm text-[var(--ui-text-dimmed)] mt-2">{{ verbosityDescription }}</div>
@@ -63,10 +68,10 @@ const toneSliders: { key: ToneKey; label: string; color: string; left: string; r
 
         <!-- Response Structure -->
         <div class="mb-6">
-          <UFormField label="Response Structure">
+          <UFormField :label="$t('communication.responseStructure')">
             <USelect
               :model-value="store.communication.structure"
-              :items="responseStructures"
+              :items="translatedResponseStructures"
               value-key="value"
               label-key="label"
               class="w-full"
