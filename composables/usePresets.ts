@@ -134,6 +134,22 @@ export function usePresets() {
       store.enabled.literary._self = false
     }
 
+    // Pre-Prompt (also handle legacy presets with instructions in advanced)
+    if (preset.preprompt) {
+      store.enabled.preprompt._self = true
+      enableAllSubs('preprompt')
+      if (preset.preprompt.systemInstructions !== undefined) store.preprompt.systemInstructions = preset.preprompt.systemInstructions
+      if (preset.preprompt.userInstructions !== undefined) store.preprompt.userInstructions = preset.preprompt.userInstructions
+      if (preset.preprompt.fallbackResponses !== undefined) store.preprompt.fallbackResponses = preset.preprompt.fallbackResponses
+    } else if (preset.advanced?.systemInstructions || preset.advanced?.userInstructions || preset.advanced?.fallbackResponses) {
+      store.enabled.preprompt._self = true
+      enableAllSubs('preprompt')
+      const a = preset.advanced
+      if (a.systemInstructions !== undefined) store.preprompt.systemInstructions = a.systemInstructions
+      if (a.userInstructions !== undefined) store.preprompt.userInstructions = a.userInstructions
+      if (a.fallbackResponses !== undefined) store.preprompt.fallbackResponses = a.fallbackResponses
+    }
+
     // Advanced
     if (preset.advanced) {
       store.enabled.advanced._self = true
@@ -143,9 +159,6 @@ export function usePresets() {
       if (a.maxResponseLength) store.advanced.maxResponseLength = a.maxResponseLength
       if (a.securityLevel) store.advanced.securityLevel = a.securityLevel
       if (a.contentFilters) store.advanced.contentFilters = [...a.contentFilters]
-      if (a.systemInstructions !== undefined) store.advanced.systemInstructions = a.systemInstructions
-      if (a.userInstructions !== undefined) store.advanced.userInstructions = a.userInstructions
-      if (a.fallbackResponses !== undefined) store.advanced.fallbackResponses = a.fallbackResponses
       if (a.conditionalBehaviors) store.advanced.conditionalBehaviors = [...a.conditionalBehaviors]
       if (a.timeBehaviors) store.advanced.timeBehaviors = [...a.timeBehaviors]
       if (a.preferredModel) store.advanced.preferredModel = a.preferredModel

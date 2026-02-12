@@ -197,6 +197,14 @@ export interface AdvancedData {
   timeout: number
 }
 
+// === Pre-Prompt Tab Types ===
+
+export interface PrePromptData {
+  systemInstructions: string
+  userInstructions: string
+  fallbackResponses: string
+}
+
 // === Philosophy Tab Types ===
 
 export type EpistemologicalStance = 'empiricist' | 'rationalist' | 'pragmatist' | 'constructivist' | 'skeptic'
@@ -283,7 +291,7 @@ export interface LiteraryData {
 
 // === Tab & Config Types ===
 
-export type TabName = 'core' | 'communication' | 'expertise' | 'behavioral' | 'philosophy' | 'theater' | 'literary' | 'advanced'
+export type TabName = 'core' | 'communication' | 'expertise' | 'behavioral' | 'philosophy' | 'theater' | 'literary' | 'preprompt' | 'advanced'
 
 export interface AgentConfig {
   version: string
@@ -301,6 +309,7 @@ export interface AgentConfig {
   philosophy: PhilosophyData
   theater: TheaterData
   literary: LiteraryData
+  preprompt: PrePromptData
   advanced: AdvancedData
   facets: Facets
 }

@@ -7,6 +7,7 @@ import type {
   ExpertiseData,
   BehavioralData,
   AdvancedData,
+  PrePromptData,
   PhilosophyData,
   TheaterData,
   LiteraryData,
@@ -34,6 +35,7 @@ export interface AllEnabledState {
   philosophy: EnabledState
   theater: EnabledState
   literary: EnabledState
+  preprompt: EnabledState
   advanced: EnabledState
   [key: string]: EnabledState
 }
@@ -44,14 +46,16 @@ function createDefaultEnabled(): AllEnabledState {
     communication: { _self: true, primaryStyle: true, modifiers: true, responseCharacteristics: true, tones: true },
     expertise: { _self: true, level: true, roleArchetype: true, industries: true, cognitive: true, learning: true },
     behavioral: { _self: true, proactivity: true, questioningStyle: true, errorHandling: true, responseBehavior: true, cultural: true, interactionPatterns: true },
-    philosophy: { _self: true, epistemology: true, ethicalFramework: true, dialecticalMethod: true, temperament: true, virtues: true },
-    theater: { _self: true, archetype: true, function: true, register: true, dynamics: true, actingTools: true, brechtian: true },
-    literary: { _self: true, narrativeVoice: true, movement: true, rhetoricalDevices: true, prose: true, rhythm: true, intertextuality: true },
+    philosophy: { _self: false, epistemology: true, ethicalFramework: true, dialecticalMethod: true, temperament: true, virtues: true },
+    theater: { _self: false, archetype: true, function: true, register: true, dynamics: true, actingTools: true, brechtian: true },
+    literary: { _self: false, narrativeVoice: true, movement: true, rhetoricalDevices: true, prose: true, rhythm: true, intertextuality: true },
+    preprompt: { _self: true, systemInstructions: true, userInstructions: true, fallbackResponses: true },
     advanced: { _self: true, capabilities: true, responseLimits: true, instructions: true, conditionalBehaviors: true, integration: true, configManagement: true },
   }
 }
 
 export const usePersonalityStore = defineStore('personality', () => {
+  const showHome = ref(true)
   const activeTab = ref<TabName>('core')
   const enabled = reactive<AllEnabledState>(createDefaultEnabled())
 
@@ -119,6 +123,12 @@ export const usePersonalityStore = defineStore('personality', () => {
     intertextuality: 30,
   })
 
+  const preprompt = reactive<PrePromptData>({
+    systemInstructions: '',
+    userInstructions: '',
+    fallbackResponses: '',
+  })
+
   const advanced = reactive<AdvancedData>({
     technicalCapabilities: [],
     maxResponseLength: 'medium',
@@ -165,7 +175,12 @@ export const usePersonalityStore = defineStore('personality', () => {
     facets[key] = value
   }
 
+  function startCrafting() {
+    showHome.value = false
+  }
+
   function switchTab(tab: TabName) {
+    showHome.value = false
     activeTab.value = tab
   }
 
@@ -237,6 +252,9 @@ export const usePersonalityStore = defineStore('personality', () => {
     literary.proseAesthetics.didacticEvocative = 50
     literary.textualRhythm = 'mixed'
     literary.intertextuality = 30
+    preprompt.systemInstructions = ''
+    preprompt.userInstructions = ''
+    preprompt.fallbackResponses = ''
     advanced.technicalCapabilities = []
     advanced.maxResponseLength = 'medium'
     advanced.securityLevel = 'standard'
@@ -287,6 +305,13 @@ export const usePersonalityStore = defineStore('personality', () => {
       Object.assign(literary, rest)
       if (proseAesthetics) Object.assign(literary.proseAesthetics, proseAesthetics)
     }
+    if (config.preprompt) Object.assign(preprompt, config.preprompt)
+    else if (config.advanced?.systemInstructions || config.advanced?.userInstructions || config.advanced?.fallbackResponses) {
+      // Backwards compat: import old configs where instructions were in advanced
+      if (config.advanced.systemInstructions) preprompt.systemInstructions = config.advanced.systemInstructions
+      if (config.advanced.userInstructions) preprompt.userInstructions = config.advanced.userInstructions
+      if (config.advanced.fallbackResponses) preprompt.fallbackResponses = config.advanced.fallbackResponses
+    }
     if (config.advanced) Object.assign(advanced, config.advanced)
     if (config.facets) Object.assign(facets, config.facets)
     if (config.enabled) {
@@ -299,6 +324,7 @@ export const usePersonalityStore = defineStore('personality', () => {
   }
 
   return {
+    showHome,
     activeTab,
     enabled,
     core,
@@ -309,6 +335,7 @@ export const usePersonalityStore = defineStore('personality', () => {
     philosophy,
     theater,
     literary,
+    preprompt,
     advanced,
     budgetUsed,
     budgetTotal,
@@ -316,6 +343,7 @@ export const usePersonalityStore = defineStore('personality', () => {
     coreTraitsArray,
     setCoreTrait,
     setFacet,
+    startCrafting,
     switchTab,
     toggleArrayItem,
     resetAll,

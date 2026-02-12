@@ -119,24 +119,6 @@ function handleValidate() {
           </div>
         </UiToggleSection>
 
-        <!-- Custom Instructions -->
-        <UiToggleSection
-          v-model:enabled="store.enabled.advanced.instructions"
-          :title="$t('advanced.customInstructions')"
-        >
-          <div class="space-y-4">
-            <UFormField :label="$t('advanced.systemInstructions')" :hint="$t('advanced.systemInstructionsHint')">
-              <UTextarea v-model="store.advanced.systemInstructions" :rows="4" class="w-full" :placeholder="$t('advanced.systemInstructionsPlaceholder')" :resize="false" />
-            </UFormField>
-            <UFormField :label="$t('advanced.userInstructions')" :hint="$t('advanced.userInstructionsHint')">
-              <UTextarea v-model="store.advanced.userInstructions" :rows="3" class="w-full" :placeholder="$t('advanced.userInstructionsPlaceholder')" :resize="false" />
-            </UFormField>
-            <UFormField :label="$t('advanced.fallbackResponses')" :hint="$t('advanced.fallbackResponsesHint')">
-              <UTextarea v-model="store.advanced.fallbackResponses" :rows="2" class="w-full" :placeholder="$t('advanced.fallbackResponsesPlaceholder')" :resize="false" />
-            </UFormField>
-          </div>
-        </UiToggleSection>
-
         <!-- Conditional Behaviors -->
         <UiToggleSection
           v-model:enabled="store.enabled.advanced.conditionalBehaviors"

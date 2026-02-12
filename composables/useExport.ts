@@ -110,6 +110,10 @@ export function useExport() {
       }
     }
 
+    if (store.enabled.preprompt._self) {
+      agentConfig.preprompt = { ...store.preprompt }
+    }
+
     if (store.enabled.advanced._self) {
       agentConfig.advanced = {
         ...store.advanced,
@@ -204,10 +208,16 @@ Prose — Linear↔Digressive: ${store.literary.proseAesthetics.linearDigressive
 Prose — Didactic↔Evocative: ${store.literary.proseAesthetics.didacticEvocative}/100`)
     }
 
-    if (store.enabled.advanced._self && store.advanced.systemInstructions) {
+    if (store.enabled.preprompt._self && store.preprompt.systemInstructions) {
       sections.push(`
 ## Custom Instructions
-${store.advanced.systemInstructions}`)
+${store.preprompt.systemInstructions}`)
+    }
+
+    if (store.enabled.preprompt._self && store.preprompt.userInstructions) {
+      sections.push(`
+## User Instructions
+${store.preprompt.userInstructions}`)
     }
 
     sections.push(`
@@ -279,7 +289,7 @@ ${personalityOverview}
     }
 
     const notableFeatures: string[] = []
-    if (store.enabled.advanced._self && store.advanced.systemInstructions) notableFeatures.push('- Custom system instructions defined')
+    if (store.enabled.preprompt._self && store.preprompt.systemInstructions) notableFeatures.push('- Custom system instructions defined')
     if (store.enabled.behavioral._self && store.behavioral.interactionPatterns.length > 0) notableFeatures.push(`- ${store.behavioral.interactionPatterns.length} interaction patterns enabled`)
     if (store.enabled.expertise._self && store.expertise.industries.length > 0) notableFeatures.push(`- Specialized in ${store.expertise.industries.length} industries`)
 

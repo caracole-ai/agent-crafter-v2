@@ -2,8 +2,11 @@
 import type { TabName } from '~/types/personality'
 
 const store = usePersonalityStore()
+const { exportFullConfig, importConfig } = useExport()
 const { locale } = useI18n()
 const { t } = useI18n()
+
+const headerImportInput = ref<HTMLInputElement>()
 
 const budgetColorClass = computed(() => {
   switch (store.budgetStatus) {
@@ -17,6 +20,15 @@ function toggleLocale() {
   locale.value = locale.value === 'en' ? 'fr' : 'en'
 }
 
+async function handleImport(e: Event) {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) {
+    const result = await importConfig(file)
+    alert(result.success ? `✅ ${result.message}` : `❌ ${result.message}`)
+  }
+  if (headerImportInput.value) headerImportInput.value.value = ''
+}
+
 const currentLocaleLabel = computed(() => locale.value === 'en' ? 'EN' : 'FR')
 
 const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
@@ -27,6 +39,7 @@ const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
   { key: 'philosophy', emoji: '🏛️', labelKey: 'tabs.philosophy' },
   { key: 'theater', emoji: '🎭', labelKey: 'tabs.theater' },
   { key: 'literary', emoji: '✒️', labelKey: 'tabs.literary' },
+  { key: 'preprompt', emoji: '📝', labelKey: 'tabs.preprompt' },
   { key: 'advanced', emoji: '⚙️', labelKey: 'tabs.advanced' },
 ]
 </script>
@@ -36,11 +49,18 @@ const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
     <!-- Top bar: branding + controls -->
     <div class="container mx-auto px-4 py-2">
       <div class="flex justify-between items-center">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 cursor-pointer" @click="store.showHome = true">
           <span class="text-lg">🧠</span>
           <h1 class="text-sm font-semibold text-[var(--ui-text)]">Agent Crafter <span class="text-[var(--ui-text-muted)] font-normal">v2.0</span></h1>
         </div>
         <div class="flex items-center gap-3">
+          <input ref="headerImportInput" type="file" accept=".json" class="hidden" @change="handleImport" />
+          <UButton size="xs" color="info" variant="soft" @click="headerImportInput?.click()">
+            📥 {{ t('actions.importAgent') }}
+          </UButton>
+          <UButton size="xs" color="success" variant="soft" @click="exportFullConfig">
+            💾 {{ t('actions.exportAgent') }}
+          </UButton>
           <UButton size="xs" color="neutral" variant="ghost" @click="toggleLocale">
             {{ currentLocaleLabel }}
           </UButton>
@@ -53,7 +73,7 @@ const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
     </div>
 
     <!-- Tab navigation -->
-    <div class="container mx-auto px-4">
+    <div v-if="!store.showHome" class="container mx-auto px-4">
       <nav class="flex flex-wrap gap-0 -mb-px">
         <button
           v-for="tab in tabs"

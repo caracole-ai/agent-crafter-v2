@@ -12,6 +12,7 @@ const tabs: { key: TabName; emoji: string; labelKey: string }[] = [
   { key: 'philosophy', emoji: '🏛️', labelKey: 'tabs.philosophy' },
   { key: 'theater', emoji: '🎭', labelKey: 'tabs.theater' },
   { key: 'literary', emoji: '✒️', labelKey: 'tabs.literary' },
+  { key: 'preprompt', emoji: '📝', labelKey: 'tabs.preprompt' },
   { key: 'advanced', emoji: '⚙️', labelKey: 'tabs.advanced' },
 ]
 </script>

@@ -7,7 +7,35 @@
     "philosophy": "Philosophy",
     "theater": "Theater",
     "literary": "Literary Style",
+    "preprompt": "Pre-Prompt",
     "advanced": "Advanced"
+  },
+  "home": {
+    "tagline": "The character creator for AI agents. Craft unique personalities with 50+ adjustable parameters.",
+    "feature1Title": "50+ Parameters",
+    "feature1Desc": "Fine-tune every aspect of your agent's personality: Big 5 traits, communication style, expertise, behavioral patterns and more.",
+    "feature2Title": "Live Preview",
+    "feature2Desc": "See your agent come to life in real-time. The smart preview combines all parameters into a coherent personality.",
+    "feature3Title": "Import / Export",
+    "feature3Desc": "Save and share your agent configurations as JSON. Import community presets or create your own templates.",
+    "startCrafting": "Start Crafting"
+  },
+  "preprompt": {
+    "systemInstructionsTitle": "System Instructions",
+    "systemInstructionsDesc": "Core directives processed at the system level. These define the foundational behavior and constraints of your agent.",
+    "systemInstructions": "System Instructions",
+    "systemInstructionsHint": "These instructions will be processed at the system level",
+    "systemInstructionsPlaceholder": "Define specific behaviors, rules, or constraints for your agent...",
+    "userInstructionsTitle": "User Instructions",
+    "userInstructionsDesc": "Contextual instructions visible to users interacting with the agent. Use these to set expectations.",
+    "userInstructions": "User Context Instructions",
+    "userInstructionsHint": "These will be visible to users interacting with the agent",
+    "userInstructionsPlaceholder": "Instructions that will be shared with users about this agent...",
+    "fallbackTitle": "Fallback Responses",
+    "fallbackDesc": "Define how the agent responds when it cannot fulfill a request or encounters uncertainty.",
+    "fallbackResponses": "Fallback Responses",
+    "fallbackHint": "Comma-separated responses for uncertainty situations",
+    "fallbackPlaceholder": "Custom responses when the agent cannot fulfill a request..."
   },
   "core": {
     "title": "Core Personality (Big 5)",

@@ -7,7 +7,35 @@
     "philosophy": "Philosophie",
     "theater": "Théâtre",
     "literary": "Style Littéraire",
+    "preprompt": "Pré-Prompt",
     "advanced": "Avancé"
+  },
+  "home": {
+    "tagline": "Le character creator pour agents IA. Craftez des personnalités uniques avec 50+ paramètres ajustables.",
+    "feature1Title": "50+ Paramètres",
+    "feature1Desc": "Ajustez chaque facette de la personnalité de votre agent : Big 5, style de communication, expertise, comportement et plus.",
+    "feature2Title": "Aperçu en Direct",
+    "feature2Desc": "Voyez votre agent prendre vie en temps réel. L'aperçu intelligent combine tous les paramètres en une personnalité cohérente.",
+    "feature3Title": "Import / Export",
+    "feature3Desc": "Sauvegardez et partagez vos configurations en JSON. Importez des presets communautaires ou créez vos propres templates.",
+    "startCrafting": "Commencer le Crafting"
+  },
+  "preprompt": {
+    "systemInstructionsTitle": "Instructions Système",
+    "systemInstructionsDesc": "Directives fondamentales traitées au niveau système. Elles définissent le comportement de base et les contraintes de votre agent.",
+    "systemInstructions": "Instructions Système",
+    "systemInstructionsHint": "Ces instructions seront traitées au niveau système",
+    "systemInstructionsPlaceholder": "Définissez des comportements, règles ou contraintes spécifiques pour votre agent...",
+    "userInstructionsTitle": "Instructions Utilisateur",
+    "userInstructionsDesc": "Instructions contextuelles visibles par les utilisateurs interagissant avec l'agent. Utilisez-les pour définir les attentes.",
+    "userInstructions": "Instructions Contextuelles Utilisateur",
+    "userInstructionsHint": "Celles-ci seront visibles par les utilisateurs interagissant avec l'agent",
+    "userInstructionsPlaceholder": "Instructions qui seront partagées avec les utilisateurs à propos de cet agent...",
+    "fallbackTitle": "Réponses de Secours",
+    "fallbackDesc": "Définissez comment l'agent répond quand il ne peut pas satisfaire une demande ou face à l'incertitude.",
+    "fallbackResponses": "Réponses de Secours",
+    "fallbackHint": "Réponses séparées par des virgules pour les situations d'incertitude",
+    "fallbackPlaceholder": "Réponses personnalisées quand l'agent ne peut pas satisfaire une demande..."
   },
   "core": {
     "title": "Personnalité (Big 5)",
